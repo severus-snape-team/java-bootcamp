@@ -1,24 +1,22 @@
 package com.bootcamp.demo;
 
+import com.bootcamp.demo.Model.Scooter;
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-import java.io.BufferedInputStream;
-import java.nio.charset.StandardCharsets;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -59,7 +57,38 @@ public class FirebaseController {
         return StreamSupport.stream(firestoreDB.listCollections().spliterator(), false)
                 .map(CollectionReference::getPath)
                 .collect(Collectors.toUnmodifiableSet());
-
     }
 
+    @GetMapping("/create/{documentName}")
+    public String insertScooter(@PathVariable("documentName") String documentName) {
+        Scooter scooter = new Scooter(documentName, "sad12", "a", 2.99, 2020, 12.3, "use");
+        this.firestoreDB.collection("scooters").document(scooter.getDocumentName()).set(scooter);
+        return "Document " + scooter.getDocumentName() + " inserted into the database";
+    }
+
+    @GetMapping("/delete/{documentName}")
+    public String deleteScooter(@PathVariable("documentName") String documentName) {
+        this.firestoreDB.collection("scooters").document(documentName).delete();
+        return "Document " + documentName + " was deleted";
+    }
+
+    @GetMapping("/update/{documentName}/{fieldName}/{newValue}")
+    public String updateScooter(@PathVariable String documentName,@PathVariable String fieldName,@PathVariable String newValue) {
+        DocumentReference doc = this.firestoreDB.collection("scooters").document(documentName);
+        switch (fieldName){
+            case "documentName", "serialNumber", "brand", "state" -> doc.update("documentName", newValue);
+            case "cost", "weight" -> doc.update("documentName", Double.parseDouble(newValue));
+            case "prodYear" -> doc.update("documentName", Integer.parseInt(newValue));
+        }
+        return "Document " + documentName + " had " + fieldName + " updated with " + newValue;
+    }
+
+    @GetMapping("/read")
+    public void readAll() throws ExecutionException, InterruptedException {
+        ApiFuture<QuerySnapshot> future = this.firestoreDB.collection("scooters").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        for (QueryDocumentSnapshot document : documents) {
+            System.out.println(document.getId());
+        }
+    }
 }
