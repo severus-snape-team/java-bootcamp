@@ -7,6 +7,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class FirebaseController {
 
     @PostConstruct
     private void initFirestore() throws IOException {
-        InputStream serviceAccount = new ByteArrayInputStream(getProperty("firebaseKey").getBytes(UTF_8));
+        InputStream serviceAccount = new ClassPathResource("serviceAccount.json").getInputStream();
         GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
 
         FirebaseOptions options = FirebaseOptions.builder()
