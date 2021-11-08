@@ -7,6 +7,10 @@
 2. Run Spring Boot application  
    with VM options `-DfirebaseKey="[...]"`
 
+## Documentation
+
+See [docs/README.md](docs/README.md) for more information.
+
 ## Test application
 
 1. With Swagger   
