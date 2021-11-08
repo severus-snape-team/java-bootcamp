@@ -6,17 +6,17 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -34,7 +34,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class FirebaseController {
 
     private Firestore firestoreDB;
-
+    @Autowired
+    ScooterService scooterService;
     @PostConstruct
     private void initFirestore() throws IOException {
         InputStream serviceAccount = new ClassPathResource("serviceAccount.json").getInputStream();
@@ -57,6 +58,10 @@ public class FirebaseController {
                 .map(CollectionReference::getPath)
                 .collect(Collectors.toUnmodifiableSet());
 
+    }
+    @PostMapping("/createScooter")
+    public String createPatient(@RequestBody Scooter scooter ) throws InterruptedException, ExecutionException {
+        return scooterService.saveScooter(scooter);
     }
 
 }
