@@ -60,7 +60,7 @@ public class FirebaseController {
 
     }
     @PostMapping("/createScooter")
-    public String createPatient(@RequestBody Scooter scooter ) throws InterruptedException, ExecutionException {
+    public String createScooter(@RequestBody Scooter scooter ) throws InterruptedException, ExecutionException {
         return scooterService.saveScooter(scooter);
     }
 
