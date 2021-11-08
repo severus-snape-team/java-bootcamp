@@ -1,24 +1,29 @@
 package com.bootcamp.demo;
 
+import com.bootcamp.demo.dto.ScooterDTO;
+import com.bootcamp.demo.entity.Scooter;
+import com.bootcamp.demo.enums.State;
+import com.bootcamp.demo.service.ScooterService;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-import java.io.BufferedInputStream;
-import java.nio.charset.StandardCharsets;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -36,6 +41,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class FirebaseController {
 
     private Firestore firestoreDB;
+
+    private final ScooterService scooterService;
+
+    @Autowired
+    public FirebaseController(ScooterService scooterService) {
+        this.scooterService = scooterService;
+    }
 
     @PostConstruct
     private void initFirestore() throws IOException {
@@ -61,5 +73,27 @@ public class FirebaseController {
                 .collect(Collectors.toUnmodifiableSet());
 
     }
+
+    @RequestMapping(value = "/createAndSaveScooter")
+    @PostMapping()
+    public void createAndSaveScooter() throws ExecutionException, InterruptedException {
+
+        Scooter scooter = new Scooter("12345TI", "MyBrand", 355.67, 2020, 15.8, State.IN_SERVICE);
+
+        scooterService.addScooter(scooter);
+    }
+
+
+    @RequestMapping(value = "/addScooter")
+    @PostMapping()
+    public ResponseEntity<UUID> addScooter(@RequestBody ScooterDTO scooterDTO) throws ExecutionException, InterruptedException {
+
+        System.out.println(scooterDTO);
+
+        scooterService.addScooterDTO(scooterDTO);
+
+        return new ResponseEntity<>(UUID.randomUUID(), HttpStatus.OK );
+    }
+
 
 }
