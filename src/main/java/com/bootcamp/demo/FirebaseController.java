@@ -1,5 +1,6 @@
 package com.bootcamp.demo;
 
+import com.bootcamp.demo.commons.MoneyCalculator;
 import com.bootcamp.demo.dto.ScooterDTO;
 import com.bootcamp.demo.entity.Scooter;
 import com.bootcamp.demo.enums.State;
@@ -21,6 +22,7 @@ import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -78,7 +80,7 @@ public class FirebaseController {
     @PostMapping()
     public void createAndSaveScooter() throws ExecutionException, InterruptedException {
 
-        Scooter scooter = new Scooter("12345TI", "MyBrand", 355.67, 2020, 15.8, State.IN_SERVICE);
+        Scooter scooter = new Scooter("12345TI", "MyBrand", new BigDecimal(135.6), 2020, 15.8, State.IN_SERVICE);
 
         scooterService.addScooter(scooter);
     }
@@ -95,5 +97,21 @@ public class FirebaseController {
         return new ResponseEntity<>(UUID.randomUUID(), HttpStatus.OK );
     }
 
+    //TODO: Delete after testing all MoneyCalculator's features
+    @RequestMapping(value= "/testMoneyCalculation")
+    @GetMapping()
+    public void testMoneyCalculator(){
+
+        BigDecimal amount1 = new BigDecimal("513.89");
+        BigDecimal amount2 = new BigDecimal("612.25");
+
+        System.out.println("Sum: " + MoneyCalculator.getSum(amount1, amount2));
+        System.out.println("Diff: " + MoneyCalculator.getDifference(amount1, amount2));
+        System.out.println("Multiplication: " + MoneyCalculator.getMultiplication(amount1, amount2));
+        System.out.println("Division: " + MoneyCalculator.getDivision(amount1, amount2));
+        System.out.println("Average: " + MoneyCalculator.getAverage(amount1, amount2));
+        System.out.println("Percentage: " + MoneyCalculator.getPercentage(amount1, 22.4));
+
+    }
 
 }

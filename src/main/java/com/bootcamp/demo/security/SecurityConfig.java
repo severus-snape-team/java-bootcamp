@@ -17,6 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/public/**").permitAll()
             .antMatchers("/actuator/health").permitAll()
             .antMatchers("/firebase/addScooter").permitAll()
+            .antMatchers("/firebase/testMoneyCalculation").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin()
