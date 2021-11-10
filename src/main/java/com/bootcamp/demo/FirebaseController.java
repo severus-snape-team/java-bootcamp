@@ -1,6 +1,6 @@
 package com.bootcamp.demo;
 
-import com.bootcamp.demo.Model.Scooter;
+import com.bootcamp.demo.model.Scooter;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
@@ -9,12 +9,14 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -59,11 +61,10 @@ public class FirebaseController {
                 .collect(Collectors.toUnmodifiableSet());
     }
 
-    @GetMapping("/create/{documentName}")
-    public String insertScooter(@PathVariable("documentName") String documentName) {
-        Scooter scooter = new Scooter(documentName, "sad12", "a", 2.99, 2020, 12.3, "use");
+    @PostMapping("/create")
+    public void insertScooter(Scooter scooter){
         this.firestoreDB.collection("scooters").document(scooter.getDocumentName()).set(scooter);
-        return "Document " + scooter.getDocumentName() + " inserted into the database";
+        System.out.println("INSERTED");
     }
 
     @GetMapping("/delete/{documentName}")
@@ -76,9 +77,10 @@ public class FirebaseController {
     public String updateScooter(@PathVariable String documentName,@PathVariable String fieldName,@PathVariable String newValue) {
         DocumentReference doc = this.firestoreDB.collection("scooters").document(documentName);
         switch (fieldName){
-            case "documentName", "serialNumber", "brand", "state" -> doc.update("documentName", newValue);
-            case "cost", "weight" -> doc.update("documentName", Double.parseDouble(newValue));
-            case "prodYear" -> doc.update("documentName", Integer.parseInt(newValue));
+            case "documentName", "serialNumber", "brand", "state" -> doc.update(fieldName, newValue);
+            case "weight" -> doc.update(fieldName, Double.parseDouble(newValue));
+            case "cost" -> doc.update(fieldName, new BigDecimal(newValue));
+            case "prodYear" -> doc.update(fieldName, Integer.parseInt(newValue));
         }
         return "Document " + documentName + " had " + fieldName + " updated with " + newValue;
     }

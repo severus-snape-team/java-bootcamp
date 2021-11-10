@@ -1,28 +1,33 @@
-package com.bootcamp.demo.Model;
+package com.bootcamp.demo.model;
 
-import com.bootcamp.demo.FirebaseController;
-import com.google.cloud.firestore.Firestore;
+import java.math.BigDecimal;
 
 public class Scooter {
     private String documentName;
     private String serialNumber;
     private String brand;
-    private double cost;
+    private BigDecimal cost;
     private int prodYear;
     private double weight;
     private String state;
 
     public Scooter() {
+        // firestore requires a constructor without parameters
     }
 
-    public Scooter(String documentName, String serialNumber, String brand, double cost, int prodYear, double weight, String state) {
+    public Scooter(String documentName, String serialNumber, String brand, String cost, int prodYear, double weight, String state) {
         this.documentName = documentName;
         this.serialNumber = serialNumber;
         this.brand = brand;
-        this.cost = cost;
+        this.cost = new BigDecimal(cost);
         this.prodYear = prodYear;
         this.weight = weight;
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Document " + this.documentName + " was created";
     }
 
     public String getDocumentName() {
@@ -49,11 +54,11 @@ public class Scooter {
         this.brand = brand;
     }
 
-    public double getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
