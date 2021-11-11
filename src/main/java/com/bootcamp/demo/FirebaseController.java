@@ -63,7 +63,7 @@ public class FirebaseController {
     }
 
     @PostMapping("/createScooter")
-    public void insertScooter(Scooter scooter){
+    public void insertScooter(Scooter scooter) {
         this.firestoreDB.collection("scooters").document(scooter.getDocumentName()).set(scooter);
     }
 
@@ -74,13 +74,32 @@ public class FirebaseController {
     }
 
     @GetMapping("/update/{documentName}/{fieldName}/{newValue}")
-    public String updateScooter(@PathVariable String documentName,@PathVariable String fieldName,@PathVariable String newValue) {
+    public String updateScooter(@PathVariable String documentName, @PathVariable String fieldName, @PathVariable String newValue) {
         DocumentReference doc = this.firestoreDB.collection("scooters").document(documentName);
-        switch (fieldName){
-            case "documentName", "serialNumber", "brand", "state" -> doc.update(fieldName, newValue);
-            case "weight" -> doc.update(fieldName, Double.parseDouble(newValue));
-            case "cost" -> doc.update(fieldName, new BigDecimal(newValue));
-            case "prodYear" -> doc.update(fieldName, Integer.parseInt(newValue));
+        switch (fieldName) {
+            case "documentName":
+                doc.update(fieldName, newValue);
+                break;
+            case "serialNumber":
+                doc.update(fieldName, newValue);
+                break;
+            case "brand":
+                doc.update(fieldName, newValue);
+                break;
+            case "state":
+                doc.update(fieldName, newValue);
+                break;
+            case "weight":
+                doc.update(fieldName, Double.parseDouble(newValue));
+                break;
+            case "cost":
+                doc.update(fieldName, new BigDecimal(newValue));
+                break;
+            case "prodYear" :
+                doc.update(fieldName, Integer.parseInt(newValue));
+                break;
+            default:
+                break;
         }
         return "Document " + documentName + " had " + fieldName + " updated with " + newValue;
     }
