@@ -1,12 +1,10 @@
 package com.bootcamp.demo.model;
 
 import com.bootcamp.demo.FirebaseController;
-import com.google.cloud.firestore.Firestore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ScooterController {
@@ -14,19 +12,16 @@ public class ScooterController {
     @Autowired
     FirebaseController firestoreController;
 
-    @GetMapping(value = "/firebase/create")
+    @GetMapping( "/firebase/createScooter")
     public String register(Model model) {
         Scooter scooter = new Scooter();
         model.addAttribute("scooter", scooter);
-        System.out.println("Submited GET");
         return "createScooterForm";
     }
 
-    @PostMapping("/firebase/create")
+    @PostMapping("/firebase/createScooter")
     public String submitForm(@ModelAttribute("scooter") Scooter scooter) {
-        System.out.println(scooter);
         this.firestoreController.insertScooter(scooter);
-        System.out.println("After calling .insertScooter");
         return "createScooterForm";
     }
 

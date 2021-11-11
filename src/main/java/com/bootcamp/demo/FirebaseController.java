@@ -9,6 +9,7 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,11 +62,9 @@ public class FirebaseController {
                 .collect(Collectors.toUnmodifiableSet());
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createScooter")
     public void insertScooter(Scooter scooter){
-        System.out.println("IN FIREBASE CONTROLLER " + scooter);
         this.firestoreDB.collection("scooters").document(scooter.getDocumentName()).set(scooter);
-        System.out.println("INSERTED");
     }
 
     @GetMapping("/delete/{documentName}")

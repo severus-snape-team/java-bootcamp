@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="@{/firebase/create}" th:method="post" th:action="@{/create}" th:object="${scooter}">
+<form action="@{/firebase/createScooter}" th:method="post" th:action="@{/firebase/createScooter}" th:object="${scooter}">
 
     <label>Document name: </label>
    <input type="text" th:field="*{documentName}"/>
