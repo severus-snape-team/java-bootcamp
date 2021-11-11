@@ -22,10 +22,11 @@ public class ScooterController {
         return "createScooterForm";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/firebase/create")
     public String submitForm(@ModelAttribute("scooter") Scooter scooter) {
         System.out.println(scooter);
         this.firestoreController.insertScooter(scooter);
+        System.out.println("After calling .insertScooter");
         return "createScooterForm";
     }
 

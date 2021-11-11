@@ -63,6 +63,7 @@ public class FirebaseController {
 
     @PostMapping("/create")
     public void insertScooter(Scooter scooter){
+        System.out.println("IN FIREBASE CONTROLLER " + scooter);
         this.firestoreDB.collection("scooters").document(scooter.getDocumentName()).set(scooter);
         System.out.println("INSERTED");
     }
