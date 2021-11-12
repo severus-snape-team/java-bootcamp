@@ -1,6 +1,7 @@
 package com.bootcamp.demo.model;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Scooter {
     private String documentName;
@@ -9,13 +10,13 @@ public class Scooter {
     private BigDecimal cost;
     private int prodYear;
     private double weight;
-    private String state;
+    private State state;
 
     public Scooter() {
         // firestore requires a constructor without parameters
     }
 
-    public Scooter(String documentName, String serialNumber, String brand, String cost, int prodYear, double weight, String state) {
+    public Scooter(String documentName, String serialNumber, String brand, String cost, int prodYear, double weight, State state) {
         this.documentName = documentName;
         this.serialNumber = serialNumber;
         this.brand = brand;
@@ -78,11 +79,24 @@ public class Scooter {
         this.weight = weight;
     }
 
-    public String getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(State state) {
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Scooter scooter = (Scooter) o;
+        return prodYear == scooter.prodYear && Double.compare(scooter.weight, weight) == 0 && Objects.equals(documentName, scooter.documentName) && Objects.equals(serialNumber, scooter.serialNumber) && Objects.equals(brand, scooter.brand) && Objects.equals(cost, scooter.cost) && state == scooter.state;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(documentName, serialNumber, brand, cost, prodYear, weight, state);
     }
 }
