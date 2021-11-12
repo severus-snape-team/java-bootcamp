@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot Tymeleaf Form</title>
+</head>
+<body>
+
+<form action="@{/firebase/createScooter}" th:method="post" th:action="@{/firebase/createScooter}" th:object="${scooter}">
+
+    <label>Document name: </label>
+   <input type="text" th:field="*{documentName}"/>
+    <label>Serial number: </label>
+   <input type="text" th:field="*{serialNumber}"/>
+    <label>Brand: </label>
+   <input type="text" th:field="*{brand}"/>
+    <label>Cost: </label>
+   <input type="text" th:field="*{cost}"/>
+    <label>Production Year: </label>
+   <input type="text" th:field="*{prodYear}"/>
+    <label>Weight: </label>
+   <input type="text" th:field="*{weight}"/>
+    <label>State: </label>
+   <input type="text" th:field="*{state}"/>
+   <input type="Submit" name="Submit"/>
+
+</form>
+
+</body>
+</html>
