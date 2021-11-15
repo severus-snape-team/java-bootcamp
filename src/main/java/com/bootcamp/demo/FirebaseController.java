@@ -66,11 +66,6 @@ public class FirebaseController {
                 .collect(Collectors.toUnmodifiableSet());
     }
 
-/*    @PostMapping("/createScooter")
-    public void insertScooter(Scooter scooter) {
-        this.firestoreDB.collection("scooters").document(scooter.getDocumentName()).set(scooter);
-    }*/
-
     @GetMapping("/delete/{documentName}")
     public String deleteScooter(@PathVariable("documentName") String documentName) {
         this.firestoreDB.collection("scooters").document(documentName).delete();
@@ -106,14 +101,5 @@ public class FirebaseController {
                 break;
         }
         return "Document " + documentName + " had " + fieldName + " updated with " + newValue;
-    }
-
-    @GetMapping("/read")
-    public void readAll() throws ExecutionException, InterruptedException {
-        ApiFuture<QuerySnapshot> future = this.firestoreDB.collection("scooters").get();
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        for (QueryDocumentSnapshot document : documents) {
-            System.out.println(document.getId());
-        }
     }
 }

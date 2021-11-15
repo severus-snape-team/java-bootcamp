@@ -38,9 +38,6 @@ public class ScooterController {
     @GetMapping("/scooters")
     public String viewAllScooters(Model model){
         model.addAttribute("scooters", this.scooterService.returnAllScooters());
-        /*for(String s : this.scooterService.returnAllScooters()){
-            System.out.println(s);
-        }*/
         return "listScooters";
     }
 

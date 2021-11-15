@@ -1,6 +1,7 @@
 package com.bootcamp.demo.service;
 
 import com.bootcamp.demo.model.Scooter;
+import com.bootcamp.demo.model.State;
 import com.bootcamp.demo.repository.ScooterRepository;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,18 @@ public class ScooterService {
         this.scooterRepository.insertScooter(scooter);
     }
 
-    public ArrayList<String> returnAllScooters() {
-        //TODO change from String to Scooter and add Scooter objects in the ArrayList
+    public ArrayList<Scooter> returnAllScooters() {
         List<QueryDocumentSnapshot> returned = this.scooterRepository.readScooters();
-        ArrayList<String> scooters = new ArrayList<>();
+        ArrayList<Scooter> scooters = new ArrayList<>();
         for (QueryDocumentSnapshot qds : returned) {
-            scooters.add(qds.getId());
+            String docName = qds.getString("documentName");
+            String serNumb = qds.getString("serialNumber");
+            String brand = qds.getString("brand");
+            String cost = qds.getString("cost");
+            long prod = qds.getLong("prodYear");
+            double weight = qds.getDouble("weight");
+            String state = qds.getString("state");
+            scooters.add(new Scooter(docName, serNumb, brand, cost, (int) prod, weight, State.valueOf(state)));
         }
         return scooters;
     }

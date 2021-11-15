@@ -24,7 +24,13 @@
 
     <tbody>
     <tr th:each="scooter : ${scooters}">
-        <td><span th:text="${scooter}"> Title </span></td>
+        <td><span th:text="${scooter.documentName}"> Title </span></td>
+        <td><span th:text="${scooter.serialNumber}"> Title </span></td>
+        <td><span th:text="${scooter.brand}"> Title </span></td>
+        <td><span th:text="${scooter.cost}"> Title </span></td>
+        <td><span th:text="${scooter.prodYear}"> Title </span></td>
+        <td><span th:text="${scooter.weight}"> Title </span></td>
+        <td><span th:text="${scooter.state}"> Title </span></td>
     </tr>
     </tbody>
 

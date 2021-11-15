@@ -34,6 +34,5 @@ public class ScooterRepository {
             e.printStackTrace();
             return null;
         }
-        // TODO convert the previous list to Scooter objects in order to return all the scooters to list them in html
     }
 }
