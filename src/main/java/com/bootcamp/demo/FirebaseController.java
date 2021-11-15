@@ -1,6 +1,7 @@
 package com.bootcamp.demo;
 
 import com.bootcamp.demo.model.Scooter;
+import com.bootcamp.demo.service.ScooterService;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
@@ -8,9 +9,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Bean;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -52,6 +52,10 @@ public class FirebaseController {
         firestoreDB = FirestoreClient.getFirestore();
     }
 
+    public Firestore getFirestoreDB() {
+        return this.firestoreDB;
+    }
+
     /**
      * Returns the paths for all collections stored in Firestore
      */
@@ -62,10 +66,10 @@ public class FirebaseController {
                 .collect(Collectors.toUnmodifiableSet());
     }
 
-    @PostMapping("/createScooter")
+/*    @PostMapping("/createScooter")
     public void insertScooter(Scooter scooter) {
         this.firestoreDB.collection("scooters").document(scooter.getDocumentName()).set(scooter);
-    }
+    }*/
 
     @GetMapping("/delete/{documentName}")
     public String deleteScooter(@PathVariable("documentName") String documentName) {
@@ -95,7 +99,7 @@ public class FirebaseController {
             case "cost":
                 doc.update(fieldName, new BigDecimal(newValue));
                 break;
-            case "prodYear" :
+            case "prodYear":
                 doc.update(fieldName, Integer.parseInt(newValue));
                 break;
             default:
