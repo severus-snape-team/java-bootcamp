@@ -3,13 +3,11 @@ package com.bootcamp.demo.service;
 import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.model.State;
 import com.bootcamp.demo.repository.ScooterRepository;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -17,7 +15,6 @@ public class ScooterService {
 
     private final ScooterRepository scooterRepository;
 
-    @Autowired
     public ScooterService(ScooterRepository scooterRepository) {
         this.scooterRepository = scooterRepository;
     }
@@ -47,20 +44,20 @@ public class ScooterService {
         }
     }
 
-    public ArrayList<Scooter> returnAllScooters() {
-        List<QueryDocumentSnapshot> returned = this.scooterRepository.readScooters();
-        ArrayList<Scooter> scooters = new ArrayList<>();
-        for (QueryDocumentSnapshot qds : returned) {
-            String docName = qds.getString("documentName");
-            String serNumb = qds.getString("serialNumber");
-            String brand = qds.getString("brand");
-            String cost = qds.getString("cost");
-            long prod = qds.getLong("prodYear");
-            double weight = qds.getDouble("weight");
-            String state = qds.getString("state");
-            scooters.add(new Scooter(docName, serNumb, brand, cost, (int) prod, weight, State.valueOf(state)));
-        }
-        return scooters;
+    public String updateScooter(String documentName, String fieldName, String newValue) {
+        return this.scooterRepository.updateScooter(documentName, fieldName, newValue);
+    }
+
+    public String deleteScooter(String documentName) {
+        return this.scooterRepository.deleteScooter(documentName);
+    }
+
+    public Set<String> getAllPaths() {
+        return this.scooterRepository.getAllPaths();
+    }
+
+    public List<Scooter> returnAllScooters() throws ExecutionException, InterruptedException {
+        return this.scooterRepository.readScooters();
     }
 
 }
