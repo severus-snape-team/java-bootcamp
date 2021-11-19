@@ -66,6 +66,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -113,13 +120,13 @@
 <!--                                    <excludes>-->
 <!--                                        <exclude>com.bootcamp.demo.*</exclude>-->
 <!--                                    </excludes>-->
-                                    <limits>
+                                    <!--<limits>
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
                                             <minimum>80%</minimum>
                                         </limit>
-                                    </limits>
+                                    </limits>-->
                                 </rule>
                             </rules>
                         </configuration>
