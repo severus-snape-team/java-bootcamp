@@ -5,6 +5,7 @@ import com.bootcamp.demo.model.State;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -107,5 +108,10 @@ public class ScooterRepository {
         return StreamSupport.stream(this.firestoreDB.listCollections().spliterator(), false)
                 .map(CollectionReference::getPath)
                 .collect(Collectors.toUnmodifiableSet());
+    }
+
+    @VisibleForTesting
+    public void setFirestoreDB(Firestore firestoreDB) {
+        this.firestoreDB = firestoreDB;
     }
 }
