@@ -110,6 +110,18 @@ public class ScooterRepository {
                 .collect(Collectors.toUnmodifiableSet());
     }
 
+
+    public DocumentSnapshot getScooterByName(String scooterName) {
+        ApiFuture<DocumentSnapshot> future = this.firestoreDB.collection("scooters").document(scooterName).get();
+        try {
+            return future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            System.out.println("ERROR IN RETRIEVING SCOOTER OBJECT FOR: "+ scooterName);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @VisibleForTesting
     public void setFirestoreDB(Firestore firestoreDB) {
         this.firestoreDB = firestoreDB;

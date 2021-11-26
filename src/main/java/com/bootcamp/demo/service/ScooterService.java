@@ -3,6 +3,7 @@ package com.bootcamp.demo.service;
 import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.model.State;
 import com.bootcamp.demo.repository.ScooterRepository;
+import com.google.cloud.firestore.DocumentSnapshot;
 import org.springframework.stereotype.Service;
 
 import java.util.InputMismatchException;
@@ -60,4 +61,14 @@ public class ScooterService {
         return this.scooterRepository.readScooters();
     }
 
+
+    public Scooter getScooterByName(String scooterName) {
+        DocumentSnapshot document = scooterRepository.getScooterByName(scooterName);
+
+        if(document.exists()) {
+            return document.toObject(Scooter.class);
+        }else {
+            return null;
+        }
+    }
 }
