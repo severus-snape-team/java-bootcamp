@@ -5,8 +5,10 @@ import com.bootcamp.demo.service.ScooterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
@@ -30,9 +32,14 @@ public class ScooterController {
     }
 
     @PostMapping("/createScooter")
-    public String submitForm(@ModelAttribute("scooter") Scooter scooter) {
-        this.scooterService.insertScooter(scooter);
-        return "redirect:/firebase/scooters";
+    public String submitForm(@Valid @ModelAttribute("scooter") Scooter scooter, BindingResult bindingResult, Model m) {
+        if (!bindingResult.hasErrors()) {
+            this.scooterService.insertScooter(scooter);
+            m.addAttribute("message", "Successfully added...");
+            return "redirect:/firebase/scooters";
+        }
+        else
+            return "createScooterForm";
     }
 
     /**
