@@ -32,7 +32,7 @@ public class ScooterController {
     @PostMapping("/createScooter")
     public String submitForm(@ModelAttribute("scooter") Scooter scooter) {
         this.scooterService.insertScooter(scooter);
-        return "createScooterForm";
+        return "redirect:/firebase/scooters";
     }
 
     /**
@@ -48,5 +48,36 @@ public class ScooterController {
     public @ResponseBody
     Set<String> getAllPaths() {
         return this.scooterService.getAllPaths();
+    }
+
+    /**
+     * Returning an html page for the scooter with DocumentName = scooterName (where scooterName is a path variable)
+     */
+    @GetMapping("/scooters/{scooterName}")
+    public String viewScooter(@PathVariable String scooterName, Model model) {
+        Scooter scooter = scooterService.getScooterByName(scooterName);
+        if(scooter == null)
+            return "redirect:/firebase/scooters";
+        model.addAttribute("scooter", scooter);
+        return "getScooter";
+    }
+
+
+    /**
+     * Updates the scooter received from model if the "Update" button was pressed on getScooter page
+     */
+    @PostMapping(value = "/modifyScooter", params = "Update")
+    public String updateScooter(@ModelAttribute("scooter") Scooter scooter){
+        this.scooterService.insertScooter(scooter);
+        return "redirect:/firebase/scooters";
+    }
+
+    /**
+     * Deletes the scooter received from model if the "Delete" button was pressed on getScooter page
+     */
+    @PostMapping(value = "/modifyScooter", params = "Delete")
+    public String deleteScooter(@ModelAttribute("scooter") Scooter scooter){
+        this.scooterService.deleteScooter(scooter.getDocumentName());
+        return "redirect:/firebase/scooters";
     }
 }

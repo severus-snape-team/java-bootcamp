@@ -1,39 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link th:href="@{/public/scooter-style.css}" rel="stylesheet">
+<!--    <link href="../static/public/scooter-style.css" rel="stylesheet">-->
+
+    <title>Scooters Page</title>
+
+    <!-- Google fonts: Roboto Slab    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+
 </head>
 <body>
-<table>
-    <thead>
-        <th> Name </th>
-        <th> Serial number </th>
-        <th> Brand </th>
-        <th> Cost </th>
-        <th> Production Year </th>
-        <th> Weight </th>
-        <th> State </th>
-    </thead>
+<div class="container">
+    <div class="inner-container" style="width: 100%">
+        <div class="table-class">
+            <div class="row">
+                <div class="title" style="margin-bottom:50px;">
+                    <h1>Available Scooters</h1>
+                </div>
+            </div>
 
-    <tbody>
-    <tr th:each="scooter : ${scooters}">
-        <td><span th:text="${scooter.documentName}"> Title </span></td>
-        <td><span th:text="${scooter.serialNumber}"> Title </span></td>
-        <td><span th:text="${scooter.brand}"> Title </span></td>
-        <td><span th:text="${scooter.cost}"> Title </span></td>
-        <td><span th:text="${scooter.prodYear}"> Title </span></td>
-        <td><span th:text="${scooter.weight}"> Title </span></td>
-        <td><span th:text="${scooter.state}"> Title </span></td>
-    </tr>
-    </tbody>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="border-color: rgb(242, 232, 207); text-align: center;">Scooter Name</th>
+                    <th style="border-color: rgb(242, 232, 207); text-align: center;">Brand</th>
+                    <th style="border-color: rgb(242, 232, 207); text-align: center;">Cost</th>
+                    <th style="border-color: rgb(242, 232, 207); text-align: center;">State</th>
+                    <th style="border-color: rgb(242, 232, 207); text-align: center;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="scooter : ${scooters}">
+                    <tr>
+                        <td th:text="${scooter.documentName}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
+                        <td th:text="${scooter.brand}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
+                        <td th:text="${scooter.cost}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
+                        <td th:text="${scooter.state}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
+                        <td style="border-color: rgb(242, 232, 207); text-align: center;"><a style="padding-top:8px;" class="btn"  th:href="@{/firebase/scooters/{id}(id=${scooter.documentName})}">Modify</a></td>
+                    </tr>
+                </div>
+                <tr>
+                    <td style="border-color: rgb(242, 232, 207); text-align: center;">   </td>
+                    <td style="border-color: rgb(242, 232, 207); text-align: center;">   </td>
+                    <td style="border-color: rgb(242, 232, 207); text-align: center;">   </td>
+                    <td style="border-color: rgb(242, 232, 207); text-align: center;">   </td>
+                    <td style="border-color: rgb(242, 232, 207); text-align: center;"><a style="padding-top:8px; padding-left: 8px;" class="btn"   th:href="@{/firebase/createScooter}">Insert New</a></td>
+                </tr>
 
-</table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
