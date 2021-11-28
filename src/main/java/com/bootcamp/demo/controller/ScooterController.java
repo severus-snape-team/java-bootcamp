@@ -72,9 +72,12 @@ public class ScooterController {
      * Updates the scooter received from model if the "Update" button was pressed on getScooter page
      */
     @PostMapping(value = "/modifyScooter", params = "Update")
-    public String updateScooter(@ModelAttribute("scooter") Scooter scooter) {
-        this.scooterService.insertScooter(scooter);
-        return "redirect:/firebase/scooters";
+    public String updateScooter(@Valid @ModelAttribute("scooter") Scooter scooter,BindingResult bindingResult, Model m) {
+        if (!bindingResult.hasErrors()) {
+            this.scooterService.insertScooter(scooter);
+            m.addAttribute("message", "Successfully updated...");
+        }
+        return "getScooter";
     }
 
     /**
