@@ -29,11 +29,15 @@
                 <div  class="col-md-6 mb-3">
                     <label>Scooter name: </label>
                     <input type="text" class="form-control" th:field="*{documentName}" required/>
+                    <small class="text-danger" th:if="${#fields.hasErrors('documentName')}"
+                           th:errors="*{documentName}">documentName Error</small>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label>Brand: </label>
                     <input type="text" class="form-control" th:field="*{brand}" required/>
+                    <small class="text-danger" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}">brand
+                        Error</small>
                 </div>
             </div>
 
@@ -50,32 +54,41 @@
                 <div class="col-md-6 mb-3">
                     <label>Serial number: </label>
                     <input type="text" class="form-control" th:field="*{serialNumber}" required/>
+                    <small class="text-danger" th:if="${#fields.hasErrors('serialNumber')}"
+                           th:errors="*{serialNumber}">serialNumber Error</small>
                 </div></div>
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <label>Cost: </label>
                     <input type="number" step="any" class="form-control" th:field="*{cost}" required/>
+                    <small class="text-danger" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">cost
+                        Error</small>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label>Production Year: </label>
                     <input type="number" class="form-control" th:field="*{prodYear}" required/>
+                    <small class="text-danger" th:if="${#fields.hasErrors('prodYear')}" th:errors="*{prodYear}">prodYear
+                        Error</small>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label>Weight: </label>
                     <input type="number" step="any" class="form-control" th:field="*{weight}" required/>
+                    <small class="text-danger" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">weight
+                        Error</small>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <input type="Submit"  class="btn" name="Create" value="Create" />
+                        <small class="text-success" th:if="${message}" th:text="${message}">Created...</small>
                     </div>
                     <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: end; padding-right:0; ">
                         <a style=" margin-right: 0" class="btn"  th:href="@{/firebase/scooters/}">Back</a>
                     </div>
-
                 </div>
             </div>
         </form>
     </div>
 </div>
+
 </body>
 </html>
