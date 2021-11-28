@@ -24,7 +24,7 @@ public class ScooterController {
         this.scooterService = scooterService;
     }
 
-    @GetMapping( "/createScooter")
+    @GetMapping("/createScooter")
     public String register(Model model) {
         Scooter scooter = new Scooter();
         model.addAttribute("scooter", scooter);
@@ -36,10 +36,8 @@ public class ScooterController {
         if (!bindingResult.hasErrors()) {
             this.scooterService.insertScooter(scooter);
             m.addAttribute("message", "Successfully added...");
-            return "redirect:/firebase/scooters";
         }
-        else
-            return "createScooterForm";
+        return "createScooterForm";
     }
 
     /**
@@ -63,7 +61,7 @@ public class ScooterController {
     @GetMapping("/scooters/{scooterName}")
     public String viewScooter(@PathVariable String scooterName, Model model) {
         Scooter scooter = scooterService.getScooterByName(scooterName);
-        if(scooter == null)
+        if (scooter == null)
             return "redirect:/firebase/scooters";
         model.addAttribute("scooter", scooter);
         return "getScooter";
@@ -74,7 +72,7 @@ public class ScooterController {
      * Updates the scooter received from model if the "Update" button was pressed on getScooter page
      */
     @PostMapping(value = "/modifyScooter", params = "Update")
-    public String updateScooter(@ModelAttribute("scooter") Scooter scooter){
+    public String updateScooter(@ModelAttribute("scooter") Scooter scooter) {
         this.scooterService.insertScooter(scooter);
         return "redirect:/firebase/scooters";
     }
@@ -83,7 +81,7 @@ public class ScooterController {
      * Deletes the scooter received from model if the "Delete" button was pressed on getScooter page
      */
     @PostMapping(value = "/modifyScooter", params = "Delete")
-    public String deleteScooter(@ModelAttribute("scooter") Scooter scooter){
+    public String deleteScooter(@ModelAttribute("scooter") Scooter scooter) {
         this.scooterService.deleteScooter(scooter.getDocumentName());
         return "redirect:/firebase/scooters";
     }
