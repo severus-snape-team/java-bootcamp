@@ -98,6 +98,16 @@
                 <div class="row">
                     <small class="text-success" th:if="${message}" th:text="${message}">Updated...</small>
                 </div>
+                <div class="row"></div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <a th:href="${'data:image/png;base64,' + qr_code_img}" th:attr="download='qr.png'">
+                            <img th:src="${'data:image/png;base64,' + qr_code_img}" alt="" />
+                        </a>
+                    </div>
+                    <div class="col"></div>
+                </div>
             </div>
         </form>
     </div>
