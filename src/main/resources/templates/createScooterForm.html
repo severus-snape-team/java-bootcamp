@@ -28,7 +28,7 @@
 <body>
 <div class="container" >
     <div class="inner-container">
-        <form action="@{/firebase/createScooter}" th:method="post" th:action="@{/firebase/createScooter}" th:object="${scooter}">
+        <form action="@{/createScooter}" th:method="post" th:action="@{/createScooter}" th:object="${scooter}">
             <div class="row">
                 <div class="title">
                     <h1>Create Scooter</h1>
@@ -91,7 +91,7 @@
                         <small class="text-success" th:if="${message}" th:text="${message}">Created...</small>
                     </div>
                     <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: end; padding-right:0; ">
-                        <a style=" margin-right: 0" class="btn"  th:href="@{/firebase/scooters/}">Back</a>
+                        <a style=" margin-right: 0" class="btn"  th:href="@{/scooters/}">Back</a>
                     </div>
                 </div>
             </div>

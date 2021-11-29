@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
-@RequestMapping("/firebase")
+@RequestMapping("/")
 public class ScooterController {
 
     private final ScooterService scooterService;
@@ -62,7 +62,7 @@ public class ScooterController {
     public String viewScooter(@PathVariable String scooterName, Model model) {
         Scooter scooter = scooterService.getScooterByName(scooterName);
         if (scooter == null)
-            return "redirect:/firebase/scooters";
+            return "redirect:/scooters";
         model.addAttribute("scooter", scooter);
         return "getScooter";
     }
@@ -86,6 +86,6 @@ public class ScooterController {
     @PostMapping(value = "/modifyScooter", params = "Delete")
     public String deleteScooter(@ModelAttribute("scooter") Scooter scooter) {
         this.scooterService.deleteScooter(scooter.getDocumentName());
-        return "redirect:/firebase/scooters";
+        return "redirect:/scooters";
     }
 }
