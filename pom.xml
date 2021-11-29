@@ -110,6 +110,14 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>com/bootcamp/demo/security/**</exclude>
+                                <exclude>com/bootcamp/demo/validation/**</exclude>
+                                <exclude>com/bootcamp/demo/DemoApplication.class</exclude>
+                                <exclude>com/bootcamp/demo/LoginController.class</exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
                     <!-- Threshold -->
                     <execution>
@@ -118,12 +126,15 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
+                            <excludes>
+                                <exclude>com/bootcamp/demo/security/**</exclude>
+                                <exclude>com/bootcamp/demo/validation/**</exclude>
+                                <exclude>com/bootcamp/demo/DemoApplication.class</exclude>
+                                <exclude>com/bootcamp/demo/LoginController.class</exclude>
+                            </excludes>
                             <rules>
                                 <rule>
                                     <element>CLASS</element>
-<!--                                    <excludes>-->
-<!--                                        <exclude>com.bootcamp.demo.*</exclude>-->
-<!--                                    </excludes>-->
                                     <!--<limits>
                                         <limit>
                                             <counter>LINE</counter>
