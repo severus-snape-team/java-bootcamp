@@ -33,7 +33,7 @@ class ScooterServiceTest {
     @Test
     void shouldNotInsertScooter() {
             try {
-                scooterService.insertScooter(new Scooter("dcoumentName", "serialNumber_INVALID", "brand", "100", 2019, 100, State.IN_SERVICE));
+                scooterService.insertScooter(new Scooter("dcoumentName", "serialNumber_INVALID", "brand", "100", 2019, 100, State.IN_SERVICE,"11.46542","20.50435"));
                 fail("Should have thrown exception");
             }
             catch (InputMismatchException e) {
@@ -45,7 +45,7 @@ class ScooterServiceTest {
     void shouldInsertScooter() {
         doNothing().when(scooterRepositoryMock).insertScooter(any(Scooter.class));
 
-        scooterService.insertScooter(new Scooter("documentName", "serialNumber", "brand", "100", 2019, 100, State.IN_SERVICE));
+        scooterService.insertScooter(new Scooter("documentName", "serialNumber", "brand", "100", 2019, 100, State.IN_SERVICE,"11.46542","20.50435"));
 
         verify(scooterRepositoryMock, times(1)).insertScooter(any(Scooter.class));
     }

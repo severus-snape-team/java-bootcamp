@@ -2,7 +2,6 @@ package com.bootcamp.demo.controller;
 
 import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.service.ScooterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
+import static java.lang.System.getProperty;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
@@ -32,6 +32,9 @@ public class ScooterController {
     @PostMapping("/createScooter")
     public String submitForm(@ModelAttribute("scooter") Scooter scooter) {
         this.scooterService.insertScooter(scooter);
+
+//        System.out.println(scooter.toString());
+
         return "redirect:/firebase/scooters";
     }
 
@@ -59,7 +62,7 @@ public class ScooterController {
         if(scooter == null)
             return "redirect:/firebase/scooters";
         model.addAttribute("scooter", scooter);
-        return "getScooter";
+        return "modifyScooterForm";
     }
 
 
@@ -80,4 +83,13 @@ public class ScooterController {
         this.scooterService.deleteScooter(scooter.getDocumentName());
         return "redirect:/firebase/scooters";
     }
+
+
+    @GetMapping("/map")
+    public String viewGoogleMaps(Model model) {
+        model.addAttribute("mapsKey", getProperty("mapsKey"));
+        return "map";
+    }
+
+
 }

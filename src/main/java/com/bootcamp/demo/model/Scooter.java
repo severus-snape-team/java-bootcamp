@@ -11,12 +11,14 @@ public class Scooter {
     private int prodYear;
     private double weight;
     private State state;
+    private String latitude;
+    private String longitude;
 
     public Scooter() {
         // firestore requires a constructor without parameters
     }
 
-    public Scooter(String documentName, String serialNumber, String brand, String cost, int prodYear, double weight, State state) {
+    public Scooter(String documentName, String serialNumber, String brand, String cost, int prodYear, double weight, State state, String latitude, String longitude) {
         this.documentName = documentName;
         this.serialNumber = serialNumber;
         this.brand = brand;
@@ -24,11 +26,8 @@ public class Scooter {
         this.prodYear = prodYear;
         this.weight = weight;
         this.state = state;
-    }
-
-    @Override
-    public String toString() {
-        return "Document " + this.documentName + " was created";
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getDocumentName() {
@@ -87,16 +86,47 @@ public class Scooter {
         this.state = state;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Scooter scooter = (Scooter) o;
-        return prodYear == scooter.prodYear && Double.compare(scooter.weight, weight) == 0 && Objects.equals(documentName, scooter.documentName) && Objects.equals(serialNumber, scooter.serialNumber) && Objects.equals(brand, scooter.brand) && Objects.equals(cost, scooter.cost) && state == scooter.state;
+        return prodYear == scooter.prodYear && Double.compare(scooter.weight, weight) == 0 && Objects.equals(documentName, scooter.documentName) && Objects.equals(serialNumber, scooter.serialNumber) && Objects.equals(brand, scooter.brand) && Objects.equals(cost, scooter.cost) && state == scooter.state && Objects.equals(latitude, scooter.latitude) && Objects.equals(longitude, scooter.longitude);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(documentName, serialNumber, brand, cost, prodYear, weight, state);
+        return Objects.hash(documentName, serialNumber, brand, cost, prodYear, weight, state, latitude, longitude);
+    }
+
+    @Override
+    public String toString() {
+        return "Scooter{" +
+                "documentName='" + documentName + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", brand='" + brand + '\'' +
+                ", cost=" + cost +
+                ", prodYear=" + prodYear +
+                ", weight=" + weight +
+                ", state=" + state +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                '}';
     }
 }
