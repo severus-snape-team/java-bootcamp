@@ -1,14 +1,27 @@
 package com.bootcamp.demo.model;
 
+import com.bootcamp.demo.validation.ProductionYearConstraint;
+
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Scooter {
+    @NotBlank(message = "Document name can't be empty!")
+    @Pattern(regexp = "(^ *$|^[0-9a-zA-Z]*$)", message = "Document name can contain only numbers and letters!")
     private String documentName;
+    @NotBlank(message = "Serial number can't be empty!")
+    @Pattern(regexp = "(^ *$|^[0-9a-zA-Z]*$)", message = "Serial number can contain only numbers and letters!")
     private String serialNumber;
+    @NotBlank(message = "Brand name can't be empty!")
+    @Pattern(regexp = "(^ *$|^[0-9a-zA-Z]*$)", message = "Brand name can contain only numbers and letters!")
     private String brand;
+    @DecimalMin(value = "0.0000001", message = "Cost can't be less than zero!")
     private BigDecimal cost;
+    @Min(value = 1996, message = "Production year can't be earlier than 1996!")
+    @ProductionYearConstraint(message = "Production year cant be greater than the current year!")
     private int prodYear;
+    @DecimalMin(value = "0.0000001", message = "Weight can't be less than zero!")
     private double weight;
     private State state;
     private String latitude;
