@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
+import static java.lang.System.getProperty;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
@@ -28,6 +29,7 @@ public class ScooterController {
     public String register(Model model) {
         Scooter scooter = new Scooter();
         model.addAttribute("scooter", scooter);
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "createScooterForm";
     }
 
@@ -37,6 +39,7 @@ public class ScooterController {
             this.scooterService.insertScooter(scooter);
             m.addAttribute("message", "Successfully added...");
         }
+        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "createScooterForm";
     }
 
@@ -64,6 +67,7 @@ public class ScooterController {
         if(scooter == null)
             return "redirect:/firebase/scooters";
         model.addAttribute("scooter", scooter);
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "modifyScooterForm";
     }
 
@@ -77,6 +81,7 @@ public class ScooterController {
             this.scooterService.insertScooter(scooter);
             m.addAttribute("message", "Successfully updated...");
         }
+        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "modifyScooterForm";
     }
 
@@ -87,5 +92,12 @@ public class ScooterController {
     public String deleteScooter(@ModelAttribute("scooter") Scooter scooter){
         this.scooterService.deleteScooter(scooter.getDocumentName());
         return "redirect:/firebase/scooters";
+    }
+
+    @GetMapping("/map")
+    public String getMap(Model model) throws ExecutionException, InterruptedException {
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        model.addAttribute("scooters", this.scooterService.returnAllScooters());
+        return "map";
     }
 }

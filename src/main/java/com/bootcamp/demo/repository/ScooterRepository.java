@@ -99,7 +99,9 @@ public class ScooterRepository {
             int prod = qds.getLong("prodYear").intValue();
             double weight = qds.getDouble("weight");
             String state = qds.getString("state");
-            scooters.add(new Scooter(docName, serNumb, brand, cost, prod, weight, State.valueOf(state),"",""));
+            String latitude = qds.getString("latitude");
+            String longitude = qds.getString("longitude");
+            scooters.add(new Scooter(docName, serNumb, brand, cost, prod, weight, State.valueOf(state),latitude,longitude));
         }
         return scooters;
     }

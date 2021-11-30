@@ -130,8 +130,7 @@
 
 
 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEMSwfZ9Ct_LmUlJY3eiFZbn8l3qmjjDY&callback=initMap&v=weekly"
+<script th:src="|https://maps.googleapis.com/maps/api/js?key=${mapsApiKey}&callback=initMap&v=weekly|"
         async
 ></script>
 
