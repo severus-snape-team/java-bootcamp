@@ -1,7 +1,9 @@
 package com.bootcamp.demo.controller;
 
+import com.bootcamp.demo.controller.qrcode.QRCodeGenerator;
 import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.service.ScooterService;
+import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,13 +11,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
-@RequestMapping("/firebase")
+@RequestMapping("/")
 public class ScooterController {
 
     private final ScooterService scooterService;
@@ -60,9 +64,16 @@ public class ScooterController {
      */
     @GetMapping("/scooters/{scooterName}")
     public String viewScooter(@PathVariable String scooterName, Model model) {
+        try {
+            byte[] image = QRCodeGenerator.getQRCodeImage("https://java-bootcamp.herokuapp.com/scooters/" + scooterName, 180, 180);
+            String qrcode = Base64.getEncoder().encodeToString(image);
+            model.addAttribute("qr_code_img", qrcode);
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
         Scooter scooter = scooterService.getScooterByName(scooterName);
         if (scooter == null)
-            return "redirect:/firebase/scooters";
+            return "redirect:/scooters";
         model.addAttribute("scooter", scooter);
         return "getScooter";
     }
@@ -73,6 +84,14 @@ public class ScooterController {
      */
     @PostMapping(value = "/modifyScooter", params = "Update")
     public String updateScooter(@Valid @ModelAttribute("scooter") Scooter scooter,BindingResult bindingResult, Model m) {
+        try {
+            byte[] image = QRCodeGenerator.getQRCodeImage("https://java-bootcamp.herokuapp.com/scooters/" + scooter.getDocumentName(), 180, 180);
+            String qrcode = Base64.getEncoder().encodeToString(image);
+            m.addAttribute("qr_code_img", qrcode);
+
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
         if (!bindingResult.hasErrors()) {
             this.scooterService.insertScooter(scooter);
             m.addAttribute("message", "Successfully updated...");
@@ -86,6 +105,6 @@ public class ScooterController {
     @PostMapping(value = "/modifyScooter", params = "Delete")
     public String deleteScooter(@ModelAttribute("scooter") Scooter scooter) {
         this.scooterService.deleteScooter(scooter.getDocumentName());
-        return "redirect:/firebase/scooters";
+        return "redirect:/scooters";
     }
 }
