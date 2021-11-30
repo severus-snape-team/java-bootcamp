@@ -12,7 +12,7 @@ class ScooterTest {
 
     @BeforeEach
     void setUp() {
-        scooter = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE);
+        scooter = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
     }
 
     @Test
@@ -122,14 +122,14 @@ class ScooterTest {
         assertTrue(scooter.equals(scooter));
         assertFalse(scooter.equals(null));
         assertFalse(scooter.equals(new Object()));
-        Scooter scooter1 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE);
-        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE);
-        Scooter scooter3 = new Scooter("doc1", "serial2", "brand1", "1", 2001, 1.1f, State.IN_USE);
-        Scooter scooter4 = new Scooter("doc1", "serial1", "brand2", "1", 2001, 1.1f, State.IN_USE);
-        Scooter scooter5 = new Scooter("doc1", "serial1", "brand1", "2", 2001, 1.1f, State.IN_USE);
-        Scooter scooter6 = new Scooter("doc1", "serial1", "brand1", "1", 2002, 1.1f, State.IN_USE);
-        Scooter scooter7 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 2.2f, State.IN_USE);
-        Scooter scooter8 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.BROKEN);
+        Scooter scooter1 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
+        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
+        Scooter scooter3 = new Scooter("doc1", "serial2", "brand1", "1", 2001, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
+        Scooter scooter4 = new Scooter("doc1", "serial1", "brand2", "1", 2001, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
+        Scooter scooter5 = new Scooter("doc1", "serial1", "brand1", "2", 2001, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
+        Scooter scooter6 = new Scooter("doc1", "serial1", "brand1", "1", 2002, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
+        Scooter scooter7 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 2.2f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
+        Scooter scooter8 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.BROKEN, "-27.409918931537973", "128.06496968889238");
         assertTrue(scooter.equals(scooter1));
         assertFalse(scooter.equals(scooter2));
         assertFalse(scooter.equals(scooter3));
@@ -144,7 +144,7 @@ class ScooterTest {
     void testHashCode() {
         int h1 = scooter.hashCode();
         assertEquals(h1, scooter.hashCode());
-        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE);
+        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
         assertNotEquals(h1, scooter2.hashCode());
     }
 }
