@@ -1,8 +1,12 @@
 let map;
 
 function initMap() {
+
+    const latitude = document.getElementById("lat");
+    const longitude = document.getElementById("lng");
+
     map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 46.77254971477885, lng: 23.621516628328187 },
+        center: { lat: parseFloat(latitude.value), lng: parseFloat(longitude.value) },
         zoom: 13,
         clickableIcons: false,
     });
@@ -25,9 +29,6 @@ function initMap() {
         document.getElementById("lng").value = latLng.lng;
 
     });
-
-    const latitude = document.getElementById("lat");
-    const longitude = document.getElementById("lng");
 
     placeMarker(new google.maps.LatLng(latitude.value, longitude.value));
 
