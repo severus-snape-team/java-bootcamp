@@ -22,4 +22,9 @@ public class LoginController {
         model.addAttribute("loginError", true);
         return "login";
     }
+
+    @RequestMapping("/accessDenied")
+    public String accessDenied(Model model) {
+        return "accessDenied";
+    }
 }

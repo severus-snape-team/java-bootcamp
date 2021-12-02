@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDZKXK3TET"></script>
@@ -21,7 +22,7 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link th:href="@{/public/scooter-style.css}" rel="stylesheet">
 
-    <title>Scooter Page</title>
+    <title>Rent a Scooter</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,6 +43,7 @@
             /*padding: 15px;*/
 
         }
+
         .field_name {
             font-size: 26px;
             font-family: "Roboto Light", serif;
@@ -53,12 +55,17 @@
             font-family: "Roboto Light", serif;
         }
 
+        .welcome {
+            color: white;
+            font-family: "Roboto Light", serif;
+            font-size: 22px;
+        }
     </style>
     <script>
         const sse = new EventSource('[[@{/user/sse}]]' + '/[[${scooter.documentName}]]');
         sse.onmessage = function (evt) {
-            document.getElementById('rent_btn').style.display="none";
-            document.getElementById('stop_btn').style.display="inline-block";
+            document.getElementById('rent_btn').style.display = "none";
+            document.getElementById('stop_btn').style.display = "inline-block";
             const el = document.getElementById('sse');
             el.textContent = evt.data;
 
@@ -69,6 +76,11 @@
 <div class="container">
     <div class="inner-container">
         <form action="@{/user/rentScooter}" th:method="post" th:action="@{/user/rentScooter}" th:object="${scooter}">
+            <div class="row welcome">
+                <div class="text-center">
+                    <p>Welcome, <span th:text="${userName}"></span>!</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="title">
                     <h1>Rent Scooter</h1>
@@ -104,15 +116,16 @@
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <input type="Submit" style="display: inline-block" class="btn" id="rent_btn" name="Rent" value="Rent"/>
+                    <input type="Submit" style="display: inline-block" class="btn" id="rent_btn" name="Rent"
+                           value="Rent"/>
                     <input type="Submit" style="display: none" class="btn" id="stop_btn" name="Stop" value="Stop"
                            onclick="if (!confirm('Are you sure you want to end this rental?')) return false"/>
                 </div>
                 <div class="col-md-6 mb-3"
                      style="display: flex; justify-content:right; align-items: end; padding-right:0; ">
-<!--                    <a th:href="@{/user/rentalScooters}"><input type="Submit" class="btn" value="Back"/></a>-->
+                    <!--                    <a th:href="@{/user/rentalScooters}"><input type="Submit" class="btn" value="Back"/></a>-->
                     <a th:href="@{/user/rentalScooters}"><input type="button" class="btn" value="Back"/></a>
-<!--                    <a th:href="@{/user/rentalScooters}" class="btn">Back</a>-->
+                    <!--                    <a th:href="@{/user/rentalScooters}" class="btn">Back</a>-->
                 </div>
 
             </div>

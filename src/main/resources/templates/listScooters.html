@@ -54,7 +54,7 @@
                         <td th:text="${scooter.brand}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
                         <td th:text="${scooter.cost}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
                         <td th:text="${scooter.state}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
-                        <td style="border-color: rgb(242, 232, 207); text-align: center;"><a style="padding-top:8px;" class="btn"  th:href="@{/scooters/{id}(id=${scooter.documentName})}">Modify</a></td>
+                        <td style="border-color: rgb(242, 232, 207); text-align: center;"><a style="padding-top:8px;" class="btn"  th:href="@{/admin/scooters/{id}(id=${scooter.documentName})}">Modify</a></td>
                     </tr>
                 </div>
                 <tr>
@@ -62,7 +62,7 @@
                     <td style="border-color: rgb(242, 232, 207); text-align: center;">   </td>
                     <td style="border-color: rgb(242, 232, 207); text-align: center;">   </td>
                     <td style="border-color: rgb(242, 232, 207); text-align: center;">   </td>
-                    <td style="border-color: rgb(242, 232, 207); text-align: center;"><a style="padding-top:8px; padding-left: 8px;" class="btn"   th:href="@{/createScooter}">Insert New</a></td>
+                    <td style="border-color: rgb(242, 232, 207); text-align: center;"><a style="padding-top:8px; padding-left: 8px;" class="btn"   th:href="@{/admin/createScooter}">Insert New</a></td>
                 </tr>
 
                 </tbody>

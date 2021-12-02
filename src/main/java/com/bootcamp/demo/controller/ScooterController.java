@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/admin")
 public class ScooterController {
 
     private final ScooterService scooterService;
@@ -73,7 +73,7 @@ public class ScooterController {
         }
         Scooter scooter = scooterService.getScooterByName(scooterName);
         if (scooter == null)
-            return "redirect:/scooters";
+            return "redirect:/admin/scooters";
         model.addAttribute("scooter", scooter);
         return "getScooter";
     }
@@ -105,6 +105,6 @@ public class ScooterController {
     @PostMapping(value = "/modifyScooter", params = "Delete")
     public String deleteScooter(@ModelAttribute("scooter") Scooter scooter) {
         this.scooterService.deleteScooter(scooter.getDocumentName());
-        return "redirect:/scooters";
+        return "redirect:/admin/scooters";
     }
 }

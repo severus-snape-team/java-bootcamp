@@ -5,8 +5,8 @@ import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.model.ScooterRental;
 import com.bootcamp.demo.service.RentalService;
 import com.bootcamp.demo.service.ScooterService;
+import com.bootcamp.demo.service.UserService;
 import com.google.zxing.WriterException;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,25 +16,24 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static java.lang.System.currentTimeMillis;
-import static java.lang.System.getProperty;
+import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 
-//@ConditionalOnProperty("mapsKey")
 @Controller
 @RequestMapping("/user")
 public class RentalController {
 
     private final ScooterService scooterService;
     private final RentalService rentalService;
+    private final UserService userService;
 
-    public RentalController(ScooterService scooterService, RentalService rentalService) {
+    public RentalController(ScooterService scooterService, RentalService rentalService, UserService userService) {
         this.scooterService = scooterService;
         this.rentalService = rentalService;
+        this.userService = userService;
     }
 
     @GetMapping("/rentalScooters")
@@ -65,8 +64,8 @@ public class RentalController {
             model.addAttribute("rentalTime", time);
             model.addAttribute("startDate", startDate);
         }
-//        model.addAttribute("mapsKey", getProperty("mapsKey"));
         model.addAttribute("scooter", scooter);
+        model.addAttribute("userName", userService.getUserByEmail(getContext().getAuthentication().getPrincipal().toString()).getName());
         return "getScooterDetails";
     }
 
