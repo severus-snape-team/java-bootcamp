@@ -80,7 +80,7 @@ class ScooterControllerTest {
     @Test
     void shouldViewScooter() {
         when(scooterServiceMock.getScooterByName(anyString())).thenReturn(new Scooter());
-        assertEquals("getScooter", this.scooterController.viewScooter("", model));
+        assertEquals("modifyScooterForm", this.scooterController.viewScooter("", model));
         verify(scooterServiceMock, times(1)).getScooterByName(anyString());
 
     }
@@ -89,7 +89,7 @@ class ScooterControllerTest {
     void updateScooter() {
         doNothing().when(scooterServiceMock).insertScooter(any(Scooter.class));
         when(bindingResult.hasErrors()).thenReturn(false);
-        assertEquals("getScooter", scooterController.updateScooter(new Scooter(), bindingResult, model));
+        assertEquals("modifyScooterForm", scooterController.updateScooter(new Scooter(), bindingResult, model));
         verify(scooterServiceMock, times(1)).insertScooter(any(Scooter.class));
     }
 
@@ -97,7 +97,7 @@ class ScooterControllerTest {
     void notUpdateScooter() {
         doNothing().when(scooterServiceMock).insertScooter(any(Scooter.class));
         when(bindingResult.hasErrors()).thenReturn(true);
-        assertEquals("getScooter", scooterController.updateScooter(new Scooter(), bindingResult, model));
+        assertEquals("modifyScooterForm", scooterController.updateScooter(new Scooter(), bindingResult, model));
     }
 
     @Test

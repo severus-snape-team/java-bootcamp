@@ -30,7 +30,7 @@ class ScooterTest {
 
     @Test
     void testToString() {
-        assertEquals("Document doc1 was created", scooter.toString());
+        assertEquals("Scooter{documentName='doc1', serialNumber='serial1', brand='brand1', cost=1, prodYear=2001, weight=1.100000023841858, state=IN_USE, latitude='-27.409918931537973', longitude='128.06496968889238'}", scooter.toString());
     }
 
     @Test
@@ -119,12 +119,12 @@ class ScooterTest {
 
     @Test
     void getLatitude() {
-        assertEquals(new BigDecimal("1"), scooter.getLongitude());
+        assertEquals("-27.409918931537973", scooter.getLatitude());
     }
 
     @Test
     void getLongitude() {
-        assertEquals(new BigDecimal("1"), scooter.getLongitude());
+        assertEquals("128.06496968889238", scooter.getLongitude());
     }
 
     @Test
