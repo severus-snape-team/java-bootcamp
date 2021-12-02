@@ -12,7 +12,7 @@ class ScooterTest {
 
     @BeforeEach
     void setUp() {
-        scooter = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE);
+        scooter = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "1", "1");
     }
 
     @Test
@@ -118,18 +118,44 @@ class ScooterTest {
     }
 
     @Test
+    void getLatitude() {
+        assertEquals(new BigDecimal("1"), scooter.getLongitude());
+    }
+
+    @Test
+    void getLongitude() {
+        assertEquals(new BigDecimal("1"), scooter.getLongitude());
+    }
+
+    @Test
+    void setLatitude() {
+        scooter.setLatitude(new BigDecimal("2"));
+        assertEquals(new BigDecimal("2"), scooter.getLatitude());
+        scooter.setLatitude(new BigDecimal("1"));
+    }
+
+    @Test
+    void setLongitude() {
+        scooter.setLongitude(new BigDecimal("2"));
+        assertEquals(new BigDecimal("2"), scooter.getLongitude());
+        scooter.setLongitude(new BigDecimal("1"));
+    }
+
+    @Test
     void testEquals() {
         assertTrue(scooter.equals(scooter));
         assertFalse(scooter.equals(null));
         assertFalse(scooter.equals(new Object()));
-        Scooter scooter1 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE);
-        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE);
-        Scooter scooter3 = new Scooter("doc1", "serial2", "brand1", "1", 2001, 1.1f, State.IN_USE);
-        Scooter scooter4 = new Scooter("doc1", "serial1", "brand2", "1", 2001, 1.1f, State.IN_USE);
-        Scooter scooter5 = new Scooter("doc1", "serial1", "brand1", "2", 2001, 1.1f, State.IN_USE);
-        Scooter scooter6 = new Scooter("doc1", "serial1", "brand1", "1", 2002, 1.1f, State.IN_USE);
-        Scooter scooter7 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 2.2f, State.IN_USE);
-        Scooter scooter8 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.BROKEN);
+        Scooter scooter1 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "1", "1");
+        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "1", "1");
+        Scooter scooter3 = new Scooter("doc1", "serial2", "brand1", "1", 2001, 1.1f, State.IN_USE, "1", "1");
+        Scooter scooter4 = new Scooter("doc1", "serial1", "brand2", "1", 2001, 1.1f, State.IN_USE, "1", "1");
+        Scooter scooter5 = new Scooter("doc1", "serial1", "brand1", "2", 2001, 1.1f, State.IN_USE, "1", "1");
+        Scooter scooter6 = new Scooter("doc1", "serial1", "brand1", "1", 2002, 1.1f, State.IN_USE, "1", "1");
+        Scooter scooter7 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 2.2f, State.IN_USE, "1", "1");
+        Scooter scooter8 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.BROKEN, "1", "1");
+        Scooter scooter9 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "2", "1");
+        Scooter scooter10 = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "1", "2");
         assertTrue(scooter.equals(scooter1));
         assertFalse(scooter.equals(scooter2));
         assertFalse(scooter.equals(scooter3));
@@ -138,13 +164,15 @@ class ScooterTest {
         assertFalse(scooter.equals(scooter6));
         assertFalse(scooter.equals(scooter7));
         assertFalse(scooter.equals(scooter8));
+        assertFalse(scooter.equals(scooter9));
+        assertFalse(scooter.equals(scooter10));
     }
 
     @Test
     void testHashCode() {
         int h1 = scooter.hashCode();
         assertEquals(h1, scooter.hashCode());
-        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE);
+        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "1", "1");
         assertNotEquals(h1, scooter2.hashCode());
     }
 }

@@ -103,7 +103,7 @@ class ScooterControllerTest {
     @Test
     void deleteScooter() {
         when(scooterServiceMock.deleteScooter(anyString())).thenReturn("deleted");
-        assertEquals("redirect:/scooters", scooterController.deleteScooter(new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE)));
+        assertEquals("redirect:/scooters", scooterController.deleteScooter(new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "1", "1")));
         verify(scooterServiceMock, times(1)).deleteScooter(anyString());
 
     }

@@ -1,6 +1,7 @@
 package com.bootcamp.demo.repository;
 
 import com.bootcamp.demo.model.Scooter;
+import com.bootcamp.demo.model.ScooterRental;
 import com.bootcamp.demo.model.State;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -92,14 +93,7 @@ public class ScooterRepository {
         List<QueryDocumentSnapshot> returned = future.get().getDocuments();
         ArrayList<Scooter> scooters = new ArrayList<>();
         for (QueryDocumentSnapshot qds : returned) {
-            String docName = qds.getString("documentName");
-            String serNumb = qds.getString("serialNumber");
-            String brand = qds.getString("brand");
-            String cost = qds.getString("cost");
-            int prod = qds.getLong("prodYear").intValue();
-            double weight = qds.getDouble("weight");
-            String state = qds.getString("state");
-            scooters.add(new Scooter(docName, serNumb, brand, cost, prod, weight, State.valueOf(state)));
+            scooters.add(qds.toObject(Scooter.class));
         }
         return scooters;
     }
@@ -111,15 +105,13 @@ public class ScooterRepository {
     }
 
 
-    public DocumentSnapshot getScooterByName(String scooterName) {
-        ApiFuture<DocumentSnapshot> future = this.firestoreDB.collection("scooters").document(scooterName).get();
+    public Scooter getScooterByName(String scooterName) {
         try {
-            return future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            System.out.println("ERROR IN RETRIEVING SCOOTER OBJECT FOR: "+ scooterName);
-            e.printStackTrace();
-            return null;
+            DocumentSnapshot document = this.firestoreDB.collection("scooters").document(scooterName).get().get();
+            return document.toObject(Scooter.class);
+        } catch (Exception ignored) {
         }
+        return null;
     }
 
     @VisibleForTesting

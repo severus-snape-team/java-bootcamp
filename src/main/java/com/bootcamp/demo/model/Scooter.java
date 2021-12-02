@@ -24,12 +24,14 @@ public class Scooter {
     @DecimalMin(value = "0.0000001", message = "Weight can't be less than zero!")
     private double weight;
     private State state;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
     public Scooter() {
         // firestore requires a constructor without parameters
     }
 
-    public Scooter(String documentName, String serialNumber, String brand, String cost, int prodYear, double weight, State state) {
+    public Scooter(String documentName, String serialNumber, String brand, String cost, int prodYear, double weight, State state, String latitude, String longitude) {
         this.documentName = documentName;
         this.serialNumber = serialNumber;
         this.brand = brand;
@@ -37,6 +39,8 @@ public class Scooter {
         this.prodYear = prodYear;
         this.weight = weight;
         this.state = state;
+        this.latitude = new BigDecimal(latitude);
+        this.longitude = new BigDecimal(longitude);
     }
 
     @Override
@@ -100,12 +104,28 @@ public class Scooter {
         this.state = state;
     }
 
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Scooter scooter = (Scooter) o;
-        return prodYear == scooter.prodYear && Double.compare(scooter.weight, weight) == 0 && Objects.equals(documentName, scooter.documentName) && Objects.equals(serialNumber, scooter.serialNumber) && Objects.equals(brand, scooter.brand) && Objects.equals(cost, scooter.cost) && state == scooter.state;
+        return prodYear == scooter.prodYear && Double.compare(scooter.weight, weight) == 0 && Objects.equals(documentName, scooter.documentName) && Objects.equals(serialNumber, scooter.serialNumber) && Objects.equals(brand, scooter.brand) && Objects.equals(cost, scooter.cost) && state == scooter.state && latitude.equals(scooter.latitude) && longitude.equals(scooter.longitude);
     }
 
     @Override
