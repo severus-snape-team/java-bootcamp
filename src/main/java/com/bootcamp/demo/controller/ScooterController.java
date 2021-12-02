@@ -113,10 +113,14 @@ public class ScooterController {
         return "redirect:/scooters";
     }
 
-    @GetMapping("/map")
-    public String getMap(Model model) throws ExecutionException, InterruptedException {
+
+
+    @GetMapping("/")
+    public String index(Model model) throws ExecutionException, InterruptedException {
         model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         model.addAttribute("scooters", this.scooterService.returnAllScooters());
-        return "map";
+
+        return "index";
     }
+
 }

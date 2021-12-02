@@ -1,9 +1,116 @@
+/*body{*/
+/*    background-image:url("../public/backgroundCreateScooterForm.png");*/
+/*    background-repeat: no-repeat;*/
+/*    background-attachment: fixed;*/
+/*    background-size:cover;*/
+/*    width:100vw;*/
+/*    min-height: 100vh;*/
+/*    margin: 0;*/
+/*    box-shadow: inset 0 0 0 1000px rgba(119, 136, 153,.45);*/
+/*    !*filter: grayscale(100%);*!*/
+/*    !*backdrop-filter: grayscale(1);*!*/
+/*    !*backdrop-filter: contrast(.8);*!*/
+/*    font-family: 'Roboto Slab', serif;*/
+/*    font-size: 1rem;*/
+/*    font-weight: 400;*/
+/*    line-height: 1.4;*/
+/*}*/
+/*.title{*/
+/*    text-align: center;*/
+/*    margin:15px;*/
+/*    !*text-decoration: underline;*!*/
+/*}*/
+/*form, .table-class{*/
+/*    background-color: rgba(0, 0, 0,.6);*/
+/*    color: rgb(167, 201, 87);*/
+/*    margin: auto;*/
+/*    border-radius: 10px;*/
+/*    padding:15px 30px;*/
+/*}*/
+
+/*.table-class{*/
+/*    font-size: 16px;*/
+/*}*/
+
+/*.form-control, .form-select{*/
+/*    background-color: rgb(242, 232, 207);*/
+/*    border: rgb(79, 119, 45) solid 2px;*/
+/*}*/
+
+/*.form-control:focus, .form-select:focus{*/
+/*    background: rgb(242, 232, 207);*/
+/*    border: rgb(79, 119, 45) solid 2px;*/
+/*    box-shadow: 0px 0px 10px 1px rgb(79, 119, 45);*/
+/*}*/
+
+/*.form-control:read-only, .form-control:read-only:focus{*/
+/*    background: rgb(242, 232, 207);*/
+/*    cursor:not-allowed;*/
+/*    box-shadow: none;*/
+/*}*/
+
+.btn{
+    width: 88px;
+    height: 40px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+/*a.btn{*/
+
+/*}*/
+
+/*.btn:hover{*/
+/*    color: rgb(242, 232, 207);*/
+/*    background: rgb(49, 87, 44);*/
+/*}*/
+/*.title{*/
+/*    margin: 1.5rem 0rem;*/
+/*}*/
+
+/*.mb-3{*/
+/*}*/
+
+#map {
+    height: 100%;
+    border-radius: 10px;
+}
+
+.mapContainer{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/*@media only screen*/
+/*and (min-width : 1224px) {*/
+/*    .inner-container{*/
+/*        padding-top: 7%;*/
+/*        width: 50%;*/
+/*        margin-left: auto;*/
+/*        margin-right: auto;*/
+/*    }*/
+/*}*/
+/*@media only screen*/
+/*and (max-width : 1224px) {*/
+/*    .inner-container{*/
+/*        padding-top: 3%;*/
+/*        width: 100%;*/
+/*    }*/
+/*}*/
+
+
+
+
+
 body{
-    background-image:url("../public/backgroundCreateScooterForm.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size:cover;
-    width:100vw;
+    /*background-image:url("../public/backgroundCreateScooterForm.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-attachment: fixed;*/
+    /*background-size:cover;*/
+    /*background-color: #212529;*/
     min-height: 100vh;
     margin: 0;
     box-shadow: inset 0 0 0 1000px rgba(119, 136, 153,.45);
@@ -14,90 +121,108 @@ body{
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.4;
+    color: #f5f5f5;
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.bg-gradient-dark {
+    background-image: linear-gradient(310deg,#354d65,#141727);
+    min-height: 50vh;
+    border-bottom-left-radius: 270px 15px;
+    border-bottom-right-radius: 270px 15px;
+    position: relative;
+}
+.bg-gradient-light {
+    background-image: linear-gradient(310deg,#e9ecef,#fff);
+    min-height: 50vh;
+    margin-top: -20px !important;
 }
 .title{
     text-align: center;
     margin:15px;
     /*text-decoration: underline;*/
 }
-form, .table-class{
-    background-color: rgba(0, 0, 0,.6);
-    color: rgb(167, 201, 87);
+form{
+    /*background-color: rgba(0, 0, 0,.6);*/
     margin: auto;
     border-radius: 10px;
-    padding:15px 30px;
 }
 
 .table-class{
     font-size: 16px;
 }
+/*.form-control, .form-select{*/
+/*    background-color: rgb(242, 232, 207);*/
+/*    border: rgb(79, 119, 45) solid 2px;*/
+/*}*/
 
-.form-control, .form-select{
-    background-color: rgb(242, 232, 207);
-    border: rgb(79, 119, 45) solid 2px;
-}
+/*.form-control:focus, .form-select:focus{*/
+/*    background: rgb(242, 232, 207);*/
+/*    border: rgb(79, 119, 45) solid 2px;*/
+/*    box-shadow: 0px 0px 10px 1px rgb(79, 119, 45);*/
+/*}*/
 
-.form-control:focus, .form-select:focus{
-    background: rgb(242, 232, 207);
-    border: rgb(79, 119, 45) solid 2px;
-    box-shadow: 0px 0px 10px 1px rgb(79, 119, 45);
-}
+/*.form-control:read-only, .form-control:read-only:focus{*/
+/*    background: rgb(242, 232, 207);*/
+/*    cursor:not-allowed;*/
+/*    box-shadow: none;*/
+/*}*/
 
-.form-control:read-only, .form-control:read-only:focus{
-    background: rgb(242, 232, 207);
-    cursor:not-allowed;
-    box-shadow: none;
-}
-
-.btn{
+.btn-outline{
     width: 88px;
     height: 40px;
     margin-right: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
-    background: rgb(79, 119, 45);
+    background: transparent;
     color: rgb(242, 232, 207);
-    box-shadow: 0px 0px 0px 1.5px rgb(49, 87, 44);
-
+    box-shadow: 0px 0px 0px 1.5px #0d6efd;
 }
 
-a.btn{
-
-}
-
-.btn:hover{
+.btn-outline:hover{
     color: rgb(242, 232, 207);
-    background: rgb(49, 87, 44);
+    background: #0d6efd;
 }
+a{color: #6ba7ff;}
 .title{
     margin: 1.5rem 0rem;
 }
 
 .mb-3{
+    margin: 0.5rem 0rem;
 }
-
-#map {
-    height: 100%;
+.card{
+    /*background-color: rgba(0, 0, 0,.6);*/
+    background-color: rgba(31, 31, 35, 0.8);
+    margin: auto;
     border-radius: 10px;
-    border: rgb(79, 119, 45) solid 2px;
+    -webkit-box-shadow: 2px 1px 11px 5px rgba(64,109,115,0.34);
+    box-shadow: 2px 1px 11px 5px rgba(64,109,115,0.34);
 }
-
-.mapContainer{
-    width: 100vh;
-    height: 25vh;
-    margin: 0.5rem 0;
-    margin-bottom: 0.75rem;
-    cursor: pointer;
-
+.between-divs{
+    z-index: 2;
+    margin-top: -50vh !important;
 }
-
 @media only screen
 and (min-width : 1224px) {
     .inner-container{
-        padding-top: 7%;
+        padding-top: 5%;
         width: 50%;
         margin-left: auto;
         margin-right: auto;
+    }
+    .maps-container{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .welcome-user{
+        display: block;
     }
 }
 @media only screen
@@ -105,5 +230,13 @@ and (max-width : 1224px) {
     .inner-container{
         padding-top: 3%;
         width: 100%;
+    }
+    .maps-container{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .welcome-user{
+        display: none;
     }
 }
