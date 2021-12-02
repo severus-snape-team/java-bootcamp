@@ -130,10 +130,7 @@ class ScooterRepositoryTest {
         when(iteratorMock.hasNext()).thenReturn(Boolean.TRUE, Boolean.FALSE);
         when(iteratorMock.next()).thenReturn(queryDocumentSnapshotMock, queryDocumentSnapshotMock);
 
-        when(queryDocumentSnapshotMock.getString(anyString())).thenReturn("IN_USE");
-        when(queryDocumentSnapshotMock.getString("cost")).thenReturn("1");
-        when(queryDocumentSnapshotMock.getLong(anyString())).thenReturn(123L);
-        when(queryDocumentSnapshotMock.getDouble(anyString())).thenReturn(1.1);
+        when(queryDocumentSnapshotMock.toObject(any())).thenReturn(new Scooter("IN_USE", "IN_USE", "IN_USE", "1", 123, 1.1, State.IN_USE,"1","1"));
         List<Scooter> scooters = this.repository.readScooters();
         assertNotNull(scooters);
         assertEquals(scooters.get(0), new Scooter("IN_USE", "IN_USE", "IN_USE", "1", 123, 1.1, State.IN_USE, "-27.409918931537973", "128.06496968889238"));
@@ -147,9 +144,9 @@ class ScooterRepositoryTest {
         when(collectionReferenceMock.document(anyString())).thenReturn(documentReferenceMock);
         when(documentReferenceMock.get()).thenReturn(documentSnapshotApiFutureMock);
         when(documentSnapshotApiFutureMock.get()).thenReturn(documentSnapshotMock);
-        assertNotNull(this.repository.getScooterByName(""));
+        when(documentSnapshotMock.toObject(any())).thenReturn(new Scooter("IN_USE", "IN_USE", "IN_USE", "1", 123, 1.1, State.IN_USE,"1","1"));
+        assertEquals(repository.getScooterByName(""), new Scooter("IN_USE", "IN_USE", "IN_USE", "1", 123, 1.1, State.IN_USE,"1","1"));
         verify(firestoreDBMock, times(1)).collection(anyString());
-
     }
 
     @Test
