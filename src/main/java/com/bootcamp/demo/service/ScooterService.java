@@ -10,6 +10,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @Service
 public class ScooterService {
@@ -40,14 +41,12 @@ public class ScooterService {
         return this.scooterRepository.readScooters();
     }
 
+    public List<Scooter> returnAvailableScooters() throws ExecutionException, InterruptedException {
+        return this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.OUT_OF_USE)).collect(Collectors.toList());
+    }
+
 
     public Scooter getScooterByName(String scooterName) {
-        DocumentSnapshot document = scooterRepository.getScooterByName(scooterName);
-
-        if(document.exists()) {
-            return document.toObject(Scooter.class);
-        }else {
-            return null;
-        }
+        return this.scooterRepository.getScooterByName(scooterName);
     }
 }

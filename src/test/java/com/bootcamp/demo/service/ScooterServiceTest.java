@@ -9,10 +9,7 @@ import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.model.State;
 import com.bootcamp.demo.repository.ScooterRepository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.InputMismatchException;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 import com.google.cloud.firestore.DocumentSnapshot;
@@ -38,7 +35,7 @@ class ScooterServiceTest {
 
     @Test
     void shouldNotInsertScooter() {
-        scooterService.insertScooter(new Scooter("documentName", "serialNumber_INVALID", "brand", "100", 2019, 100, State.IN_SERVICE));
+        scooterService.insertScooter(new Scooter("documentName", "serialNumber_INVALID", "brand", "100", 2019, 100, State.IN_SERVICE, "1", "1"));
         verify(scooterRepositoryMock, times(1)).insertScooter(any(Scooter.class));
     }
 
@@ -46,7 +43,7 @@ class ScooterServiceTest {
     void shouldInsertScooter() {
         doNothing().when(scooterRepositoryMock).insertScooter(any(Scooter.class));
 
-        scooterService.insertScooter(new Scooter("documentName", "serialNumber", "brand", "100", 2019, 100, State.IN_SERVICE));
+        scooterService.insertScooter(new Scooter("documentName", "serialNumber", "brand", "100", 2019, 100, State.IN_SERVICE, "1", "1"));
 
         verify(scooterRepositoryMock, times(1)).insertScooter(any(Scooter.class));
     }
@@ -93,19 +90,17 @@ class ScooterServiceTest {
 
     @Test
     void shouldGetScooterByName() {
-        when(scooterRepositoryMock.getScooterByName(anyString())).thenReturn(documentSnapshotMock);
-        when(documentSnapshotMock.exists()).thenReturn(true);
-        when(documentSnapshotMock.toObject(any())).thenReturn(new Scooter("documentName", "serialNumber", "brand", "100", 2019, 100, State.IN_SERVICE));
-        assertEquals(new Scooter("documentName", "serialNumber", "brand", "100", 2019, 100, State.IN_SERVICE), this.scooterService.getScooterByName(""));
+        when(scooterRepositoryMock.getScooterByName(anyString())).thenReturn(new Scooter("documentName", "serialNumber_INVALID", "brand", "100", 2019, 100, State.IN_SERVICE, "1", "1"));
+        assertEquals(new Scooter("documentName", "serialNumber_INVALID", "brand", "100", 2019, 100, State.IN_SERVICE, "1", "1"), scooterService.getScooterByName(""));
         verify(scooterRepositoryMock, times(1)).getScooterByName(anyString());
 
     }
 
     @Test
-    void shouldNotGetScooterByName() {
-        when(scooterRepositoryMock.getScooterByName(anyString())).thenReturn(documentSnapshotMock);
-        when(documentSnapshotMock.exists()).thenReturn(false);
-        assertNull(this.scooterService.getScooterByName(""));
-        verify(scooterRepositoryMock, times(1)).getScooterByName(anyString());
+    void returnAvailableScooters() throws ExecutionException, InterruptedException {
+        List<Scooter> scooterList = new ArrayList<>();
+        when(scooterRepositoryMock.readScooters()).thenReturn(scooterList);
+        List<Scooter> result = scooterService.returnAvailableScooters();
+        assertEquals(new ArrayList<>(),result);
     }
 }
