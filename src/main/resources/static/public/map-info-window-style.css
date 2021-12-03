@@ -1,0 +1,37 @@
+.map-info-container{
+    min-width: 5vw;
+    min-height: 10vh;
+    background: rgb(167, 201, 87);
+    padding: 0;
+    margin: 0;
+    margin-bottom:5px;
+    color:black;
+}
+
+.title-info-window{
+    text-align: center;
+}
+
+.link-info-window,
+.link-info-window:visited{
+    text-decoration: none;
+    color:black;
+    font-weight: bold;
+}
+
+.underline-info{
+    position: absolute;
+    width: 400px;
+    overflow:visible;
+    border-bottom: 3px solid rgb(79, 119, 45);
+    transform: translateX(-200px) translatey(-10px);
+}
+
+.gm-style .gm-style-iw-d::-webkit-scrollbar-track,
+.gm-style .gm-style-iw-d::-webkit-scrollbar-track-piece,
+.gm-style .gm-style-iw-c,
+.gm-style .gm-style-iw-t::after {
+    background: rgb(167, 201, 87);
+    border: rgb(79, 119, 45) solid 3px;
+
+}

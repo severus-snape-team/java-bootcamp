@@ -1,6 +1,6 @@
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -17,10 +17,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link th:href="@{/public/scooter-style.css}" rel="stylesheet">
-<!--            <link href="../static/public/scooter-style.css" rel="stylesheet">-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"crossorigin="anonymous">
+    </script>
+    <script src=
+                    "https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+            integrity=
+                    "sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+            crossorigin="anonymous"></script>
 
-    <title>Create Scooter Page</title>
+        <link th:href="@{/public/scooter-style.css}" rel="stylesheet">
+<!--    <link href="../static/public/scooter-style.css" rel="stylesheet">-->
+
+    <title>Scooter Page</title>
 
     <!-- Google fonts: Roboto Slab    -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,11 +37,10 @@
     <!-- Lottie player-->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    <script src="/public/create-form-maps.js"></script>
-<!--    <script src="../static/public/create-form-maps.js"></script>-->
+    <script src="/public/update-form-maps.js"></script>
+<!--        <script src="../static/public/update-form-maps.js"></script>-->
 
 </head>
 <body>
@@ -55,24 +62,19 @@
 <div class="bg-gradient-light pt-5">
     <div class="inner-container mt-2">
         <div class="table-class card bg-light text-dark between-divs">
+            <form action="@{/modifyScooter}" th:method="post" th:action="@{/modifyScooter}" th:object="${scooter}" style="width: 100%;">
+                <div class="card-header text-muted" style="width: 100%;">Modify scooter</div>
 
-
-            <form action="@{/createScooter}" th:method="post" th:action="@{createScooter}" th:object="${scooter}" style="width: 100%;">
-                <div class="card-header text-muted" style="width: 100%;">Create scooter</div>
-
-
-                <div class="card-body" action="@{/createScooter}" th:method="post" th:action="@{/createScooter}" th:object="${scooter}">
+                <div class="card-body">
                     <div  class="row">
                         <div  class="col-md-6 mb-3">
                             <label>Scooter name: </label>
-                            <input type="text" class="form-control" th:field="*{documentName}" required/>
-                            <small class="text-danger" th:if="${#fields.hasErrors('documentName')}"
-                                   th:errors="*{documentName}">documentName Error</small>
+                            <input type="text" class="form-control" th:field="*{documentName}" readonly/>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label>Brand: </label>
-                            <input type="text" class="form-control" th:field="*{brand}" required/>
+                            <input type="text" class="form-control" th:field="*{brand}"/>
                             <small class="text-danger" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}">brand
                                 Error</small>
                         </div>
@@ -81,7 +83,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label >State: </label>
-                            <select name="state" class="form-select" required>
+                            <select name="state" class="form-select" >
                                 <option th:value="*{state}" th:text="*{state}"></option>
                                 <option th:each="stateOpt : ${T(com.bootcamp.demo.model.State).values()}"
                                         th:value="${stateOpt}" th:text="${stateOpt}"></option>
@@ -90,7 +92,7 @@
 
                         <div class="col-md-6 mb-3">
                             <label>Serial number: </label>
-                            <input type="text" class="form-control" th:field="*{serialNumber}" required/>
+                            <input type="text" class="form-control" th:field="*{serialNumber}"/>
                             <small class="text-danger" th:if="${#fields.hasErrors('serialNumber')}"
                                    th:errors="*{serialNumber}">serialNumber Error</small>
                         </div>
@@ -99,68 +101,101 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label>Cost: </label>
-                            <input type="number" step="any" class="form-control" th:field="*{cost}" required/>
+                            <input type="number" step="any" class="form-control" th:field="*{cost}"/>
                             <small class="text-danger" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">cost
                                 Error</small>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label>Production Year: </label>
-                            <input type="number" class="form-control" th:field="*{prodYear}" required/>
+                            <input type="number" class="form-control" th:field="*{prodYear}"/>
                             <small class="text-danger" th:if="${#fields.hasErrors('prodYear')}" th:errors="*{prodYear}">prodYear
                                 Error</small>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label>Weight: </label>
-                            <input type="number" step="any" class="form-control" th:field="*{weight}" required/>
+                            <input type="number" step="any" class="form-control" th:field="*{weight}"/>
                             <small class="text-danger" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">weight
                                 Error</small>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div  class="col-md-6 mb-3">
-                            <label>Latitude: </label>
-                            <input id="lat" class="form-control" type="text" th:field="*{latitude}" required>
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading card-footer ">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse"  style="text-decoration: none;" href="#collapse1">Edit location:</a>
+                            </h4>
                         </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div  class="col-md-6 mb-3">
+                                        <label>Latitude: </label>
+                                        <input id="lat" class="form-control" type="text" th:field="*{latitude}" required>
+                                    </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label>Longitude: </label>
-                            <input id="lng" class="form-control" type="text" th:field="*{longitude}" required>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Longitude: </label>
+                                        <input id="lng" class="form-control" type="text" th:field="*{longitude}" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mapContainer" style="height: 30vh;">
+                                        <div id="map"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="mapContainer" style="height: 30vh;">
-                            <div id="map"></div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading card-footer ">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse"  style="text-decoration: none;" href="#collapse2">Generate QR code:</a>
+                            </h4>
+                        </div>
+
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div style="display: flex; justify-content: center; align-content: center;">
+                                        <a th:href="${'data:image/png;base64,' + qr_code_img}" th:attr="download='qr.png'">
+                                            <img th:src="${'data:image/png;base64,' + qr_code_img}" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
+
 
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <input type="Submit"  class="btn btn-sm btn-success" name="Create" value="Create" />
-                            <small class="text-success" th:if="${message}" th:text="${message}">Created...</small>
+                            <input type="Submit"  class="btn btn-sm btn-success" name="Update" value="Update"/>
+                            <input type="Submit"  class="btn btn-sm btn-danger" name="Delete" value="Delete" onclick="if (!confirm('Are you sure you want to delete this scooter?')) return false"/>
+                            <small class="text-success" th:if="${message}" th:text="${message}">Updated...</small>
                         </div>
                         <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: center; ">
-                            <a style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"  th:href="@{scooters/}">Back</a>
+                            <a style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"   th:href="@{/scooters/}">Back</a>
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
-</div>
 
+</div>
 
 <!-- Async script executes immediately and must be after any DOM elements used in callback.-->
 <script th:src="|https://maps.googleapis.com/maps/api/js?key=${mapsApiKey}&callback=initMap&v=weekly|"
         async
 ></script>
-
-
 
 </body>
 </html>

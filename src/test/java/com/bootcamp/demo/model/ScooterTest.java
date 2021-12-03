@@ -12,7 +12,7 @@ class ScooterTest {
 
     @BeforeEach
     void setUp() {
-        scooter = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "1", "1");
+        scooter = new Scooter("doc1", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
     }
 
     @Test
@@ -30,7 +30,7 @@ class ScooterTest {
 
     @Test
     void testToString() {
-        assertEquals("Document doc1 was created", scooter.toString());
+        assertEquals("Scooter{documentName='doc1', serialNumber='serial1', brand='brand1', cost=1, prodYear=2001, weight=1.100000023841858, state=IN_USE, latitude='-27.409918931537973', longitude='128.06496968889238'}", scooter.toString());
     }
 
     @Test
@@ -119,26 +119,26 @@ class ScooterTest {
 
     @Test
     void getLatitude() {
-        assertEquals(new BigDecimal("1"), scooter.getLongitude());
+        assertEquals("-27.409918931537973", scooter.getLatitude());
     }
 
     @Test
     void getLongitude() {
-        assertEquals(new BigDecimal("1"), scooter.getLongitude());
+        assertEquals("128.06496968889238", scooter.getLongitude());
     }
 
     @Test
     void setLatitude() {
-        scooter.setLatitude(new BigDecimal("2"));
-        assertEquals(new BigDecimal("2"), scooter.getLatitude());
-        scooter.setLatitude(new BigDecimal("1"));
+        scooter.setLatitude("2");
+        assertEquals("2", scooter.getLatitude());
+        scooter.setLatitude("1");
     }
 
     @Test
     void setLongitude() {
-        scooter.setLongitude(new BigDecimal("2"));
-        assertEquals(new BigDecimal("2"), scooter.getLongitude());
-        scooter.setLongitude(new BigDecimal("1"));
+        scooter.setLongitude("2");
+        assertEquals("2", scooter.getLongitude());
+        scooter.setLongitude("1");
     }
 
     @Test
@@ -172,7 +172,7 @@ class ScooterTest {
     void testHashCode() {
         int h1 = scooter.hashCode();
         assertEquals(h1, scooter.hashCode());
-        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "1", "1");
+        Scooter scooter2 = new Scooter("doc2", "serial1", "brand1", "1", 2001, 1.1f, State.IN_USE, "-27.409918931537973", "128.06496968889238");
         assertNotEquals(h1, scooter2.hashCode());
     }
 }
