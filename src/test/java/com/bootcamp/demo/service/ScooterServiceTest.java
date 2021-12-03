@@ -35,7 +35,7 @@ class ScooterServiceTest {
 
     @Test
     void shouldNotInsertScooter() {
-        scooterService.insertScooter(new Scooter("documentName", "serialNumber_INVALID", "brand", "100", 2019, 100, State.IN_SERVICE, "1", "1"));
+        scooterService.insertScooter(new Scooter("documentName", "serialNumber_INVALID", "brand", "100", 2019, 100, State.IN_SERVICE, "-27.409918931537973", "128.06496968889238"));
         verify(scooterRepositoryMock, times(1)).insertScooter(any(Scooter.class));
     }
 
@@ -43,7 +43,7 @@ class ScooterServiceTest {
     void shouldInsertScooter() {
         doNothing().when(scooterRepositoryMock).insertScooter(any(Scooter.class));
 
-        scooterService.insertScooter(new Scooter("documentName", "serialNumber", "brand", "100", 2019, 100, State.IN_SERVICE, "1", "1"));
+        scooterService.insertScooter(new Scooter("documentName", "serialNumber", "brand", "100", 2019, 100, State.IN_SERVICE, "-27.409918931537973", "128.06496968889238"));
 
         verify(scooterRepositoryMock, times(1)).insertScooter(any(Scooter.class));
     }

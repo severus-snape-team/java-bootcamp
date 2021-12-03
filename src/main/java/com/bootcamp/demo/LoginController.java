@@ -4,17 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import static java.lang.System.getProperty;
+
 @Controller
 public class LoginController {
 
     @RequestMapping("/login")
     public String login() {
         return "login";
-    }
-
-    @RequestMapping("/")
-    public String index() {
-        return "index";
     }
 
     @RequestMapping("/login-error")

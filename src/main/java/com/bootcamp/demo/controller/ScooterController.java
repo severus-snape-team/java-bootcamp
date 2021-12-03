@@ -16,6 +16,7 @@ import java.util.Base64;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
+import static java.lang.System.getProperty;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
@@ -28,10 +29,11 @@ public class ScooterController {
         this.scooterService = scooterService;
     }
 
-    @GetMapping("/createScooter")
+    @GetMapping( "/createScooter")
     public String register(Model model) {
         Scooter scooter = new Scooter();
         model.addAttribute("scooter", scooter);
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "createScooterForm";
     }
 
@@ -41,6 +43,7 @@ public class ScooterController {
             this.scooterService.insertScooter(scooter);
             m.addAttribute("message", "Successfully added...");
         }
+        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "createScooterForm";
     }
 
@@ -75,7 +78,8 @@ public class ScooterController {
         if (scooter == null)
             return "redirect:/admin/scooters";
         model.addAttribute("scooter", scooter);
-        return "getScooter";
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "modifyScooterForm";
     }
 
 
@@ -96,15 +100,27 @@ public class ScooterController {
             this.scooterService.insertScooter(scooter);
             m.addAttribute("message", "Successfully updated...");
         }
-        return "getScooter";
+        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "modifyScooterForm";
     }
 
     /**
      * Deletes the scooter received from model if the "Delete" button was pressed on getScooter page
      */
     @PostMapping(value = "/modifyScooter", params = "Delete")
-    public String deleteScooter(@ModelAttribute("scooter") Scooter scooter) {
+    public String deleteScooter(@ModelAttribute("scooter") Scooter scooter){
         this.scooterService.deleteScooter(scooter.getDocumentName());
         return "redirect:/admin/scooters";
     }
+
+
+
+    @GetMapping("/")
+    public String index(Model model) throws ExecutionException, InterruptedException {
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        model.addAttribute("scooters", this.scooterService.returnAllScooters());
+
+        return "index";
+    }
+
 }
