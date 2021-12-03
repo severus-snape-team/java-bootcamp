@@ -6,6 +6,7 @@ import com.bootcamp.demo.repository.ScooterRepository;
 import com.google.cloud.firestore.DocumentSnapshot;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Set;
@@ -45,8 +46,15 @@ public class ScooterService {
         return this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.OUT_OF_USE)).collect(Collectors.toList());
     }
 
-
     public Scooter getScooterByName(String scooterName) {
         return this.scooterRepository.getScooterByName(scooterName);
+    }
+
+    public List<Long> returnNumberStates() throws ExecutionException, InterruptedException {
+        long inUse = this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.IN_USE)).count();
+        long inService = this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.IN_SERVICE)).count();
+        long broken = this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.BROKEN)).count();
+        long outOfUse = this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.OUT_OF_USE)).count();
+        return List.of(inUse, inService, broken, outOfUse);
     }
 }
