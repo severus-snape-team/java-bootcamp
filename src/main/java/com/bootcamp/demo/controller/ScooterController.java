@@ -5,6 +5,7 @@ import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.service.ScooterService;
 import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +23,7 @@ import static java.lang.System.getProperty;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class ScooterController {
 
     private final ScooterService scooterService;
@@ -31,7 +32,7 @@ public class ScooterController {
         this.scooterService = scooterService;
     }
 
-    @GetMapping( "/createScooter")
+    @GetMapping("/admin/createScooter")
     public String register(Model model) {
         Scooter scooter = new Scooter();
         model.addAttribute("scooter", scooter);
@@ -39,7 +40,7 @@ public class ScooterController {
         return "createScooterForm";
     }
 
-    @PostMapping("/createScooter")
+    @PostMapping("/admin/createScooter")
     public String submitForm(@Valid @ModelAttribute("scooter") Scooter scooter, BindingResult bindingResult, Model m) {
         if (!bindingResult.hasErrors()) {
             this.scooterService.insertScooter(scooter);
@@ -52,7 +53,7 @@ public class ScooterController {
     /**
      * Returning an html page with all the scooters listed (without details)
      */
-    @GetMapping("/scooters")
+    @GetMapping("/admin/scooters")
     public String viewAllScooters(Model model) throws ExecutionException, InterruptedException {
         model.addAttribute("scooters", this.scooterService.returnAllScooters());
         return "listScooters";
@@ -67,10 +68,10 @@ public class ScooterController {
     /**
      * Returning an html page for the scooter with DocumentName = scooterName (where scooterName is a path variable)
      */
-    @GetMapping("/scooters/{scooterName}")
+    @GetMapping("/admin/scooters/{scooterName}")
     public String viewScooter(@PathVariable String scooterName, Model model) {
         try {
-            byte[] image = QRCodeGenerator.getQRCodeImage("https://java-bootcamp.herokuapp.com/scooters/" + scooterName, 180, 180);
+            byte[] image = QRCodeGenerator.getQRCodeImage("https://java-bootcamp.herokuapp.com/admin/scooters/" + scooterName, 180, 180);
             String qrcode = Base64.getEncoder().encodeToString(image);
             model.addAttribute("qr_code_img", qrcode);
         } catch (WriterException | IOException e) {
@@ -78,7 +79,7 @@ public class ScooterController {
         }
         Scooter scooter = scooterService.getScooterByName(scooterName);
         if (scooter == null)
-            return "redirect:/scooters";
+            return "redirect:/admin/scooters";
         model.addAttribute("scooter", scooter);
         model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "modifyScooterForm";
@@ -88,10 +89,10 @@ public class ScooterController {
     /**
      * Updates the scooter received from model if the "Update" button was pressed on getScooter page
      */
-    @PostMapping(value = "/modifyScooter", params = "Update")
-    public String updateScooter(@Valid @ModelAttribute("scooter") Scooter scooter,BindingResult bindingResult, Model m) {
+    @PostMapping(value = "/admin/modifyScooter", params = "Update")
+    public String updateScooter(@Valid @ModelAttribute("scooter") Scooter scooter, BindingResult bindingResult, Model m) {
         try {
-            byte[] image = QRCodeGenerator.getQRCodeImage("https://java-bootcamp.herokuapp.com/scooters/" + scooter.getDocumentName(), 180, 180);
+            byte[] image = QRCodeGenerator.getQRCodeImage("https://java-bootcamp.herokuapp.com/admin/scooters/" + scooter.getDocumentName(), 180, 180);
             String qrcode = Base64.getEncoder().encodeToString(image);
             m.addAttribute("qr_code_img", qrcode);
 
@@ -109,20 +110,25 @@ public class ScooterController {
     /**
      * Deletes the scooter received from model if the "Delete" button was pressed on getScooter page
      */
-    @PostMapping(value = "/modifyScooter", params = "Delete")
-    public String deleteScooter(@ModelAttribute("scooter") Scooter scooter){
+    @PostMapping(value = "/admin/modifyScooter", params = "Delete")
+    public String deleteScooter(@ModelAttribute("scooter") Scooter scooter) {
         this.scooterService.deleteScooter(scooter.getDocumentName());
-        return "redirect:/scooters";
+        return "redirect:/admin/scooters";
     }
 
 
-
-    @GetMapping("/")
+    @GetMapping("")
     public String index(Model model) throws ExecutionException, InterruptedException {
         model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         model.addAttribute("scooters", this.scooterService.returnAllScooters());
         model.addAttribute("states", this.scooterService.returnNumberStates());
         return "index";
     }
-
+    @GetMapping("/admin")
+    public String indexAdmin(Model model) throws ExecutionException, InterruptedException {
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        model.addAttribute("scooters", this.scooterService.returnAllScooters());
+        model.addAttribute("states", this.scooterService.returnNumberStates());
+        return "index";
+    }
 }

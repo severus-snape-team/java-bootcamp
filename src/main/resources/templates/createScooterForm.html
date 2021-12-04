@@ -1,8 +1,6 @@
-
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://thymeleaf.org">
 <head>
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDZKXK3TET"></script>
     <script>
@@ -12,13 +10,12 @@
 
         gtag('config', 'G-NDZKXK3TET');
     </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link th:href="@{/public/scooter-style.css}" rel="stylesheet">
-<!--            <link href="../static/public/scooter-style.css" rel="stylesheet">-->
+    <!--        <link href="../static/public/scooter-style.css" rel="stylesheet">-->
 
     <title>Create Scooter Page</title>
 
@@ -39,7 +36,7 @@
 <body>
 <div class="bg-gradient-dark pb-5">
     <nav class="navbar">
-        <a class="navbar-brand m-0" href="/">
+        <a class="navbar-brand m-0" th:href="@{/admin}">
             <lottie-player src="../../public/scooter_animation.json"  class="d-inline-block align-top" background="transparent"  speed="1"  style="width: 30px; height: 30px;"  loop  autoplay></lottie-player>
             Scooters Admin Panel
         </a>
@@ -57,11 +54,11 @@
         <div class="table-class card bg-light text-dark between-divs">
 
 
-            <form action="@{/createScooter}" th:method="post" th:action="@{createScooter}" th:object="${scooter}" style="width: 100%;">
+            <form action="@{/admin/createScooter}" th:method="post" th:action="@{/admin/createScooter}" th:object="${scooter}" style="width: 100%;">
                 <div class="card-header text-muted" style="width: 100%;">Create scooter</div>
 
 
-                <div class="card-body" action="@{/createScooter}" th:method="post" th:action="@{/createScooter}" th:object="${scooter}">
+                <div class="card-body" action="@{/admin/createScooter}" th:method="post" th:action="@{/admin/createScooter}" th:object="${scooter}">
                     <div  class="row">
                         <div  class="col-md-6 mb-3">
                             <label>Scooter name: </label>
@@ -144,7 +141,7 @@
                             <small class="text-success" th:if="${message}" th:text="${message}">Created...</small>
                         </div>
                         <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: center; ">
-                            <a style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"  th:href="@{scooters/}">Back</a>
+                            <a style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"  th:href="@{/admin/scooters/}">Back</a>
                         </div>
                     </div>
                 </div>

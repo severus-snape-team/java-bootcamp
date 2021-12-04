@@ -44,7 +44,7 @@
 <body>
 <div class="bg-gradient-dark pb-5">
     <nav class="navbar">
-        <a class="navbar-brand m-0" style="display: flex; justify-content: center; align-items: center;" href="/">
+        <a class="navbar-brand m-0" style="display: flex; justify-content: center; align-items: center;" th:href="@{/admin}">
             <lottie-player src="../public/scooter_animation.json"  class="d-inline-block align-top" background="transparent"  speed="1"  style="width: 60px; height: 60px;"  loop  autoplay></lottie-player>
             <h4>Scooters Admin Panel</h4>
         </a>
@@ -66,7 +66,7 @@
                                 <h4 style="margin: 0;">List Scooters</h4>
                             </div>
                             <div class="icon-box icon-box-bg-image-warning">
-                                <a style="padding: 8px 9px; padding-top:6px;" class="btn-outline btn-sm"   th:href="@{/scooters/}">
+                                <a style="padding: 8px 9px; padding-top:6px;" class="btn-outline btn-sm"   th:href="@{/admin/scooters/}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                                     </svg>
@@ -84,7 +84,7 @@
                                 <h4 style="margin: 0;">Create Scooter</h4>
                             </div>
                             <div class="icon-box icon-box-bg-image-info">
-                                <a style="padding: 8px 9px; padding-top:6px;" class="btn-outline btn-sm"   th:href="@{/createScooter}">
+                                <a style="padding: 8px 9px; padding-top:6px;" class="btn-outline btn-sm"   th:href="@{/admin/createScooter}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                                     </svg>
