@@ -32,7 +32,7 @@
 <body>
 <div class="bg-gradient-dark pb-5">
     <nav class="navbar">
-        <a class="navbar-brand m-0" href="/">
+        <a class="navbar-brand m-0" th:href="@{/admin}">
             <lottie-player src="../../public/scooter_animation.json"  class="d-inline-block align-top" background="transparent"  speed="1"  style="width: 30px; height: 30px;"  loop  autoplay></lottie-player>
             Scooters Admin Panel
         </a>
@@ -74,10 +74,10 @@
             <div class="card-footer">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <a style=" margin-right: 0; padding-top:8px;" class="btn btn-primary btn-sm btn-success"   th:href="@{/createScooter}">Insert</a></td>
+                        <a style=" margin-right: 0; padding-top:8px;" class="btn btn-primary btn-sm btn-success"   th:href="@{/admin/createScooter}">Insert</a></td>
                     </div>
                     <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: end; ">
-                        <a style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"  th:href="@{/}">Back</a>
+                        <a style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"  th:href="@{/admin}">Back</a>
                     </div>
                 </div>
             </div>

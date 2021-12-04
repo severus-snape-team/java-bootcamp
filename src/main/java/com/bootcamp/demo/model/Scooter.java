@@ -24,7 +24,11 @@ public class Scooter {
     @DecimalMin(value = "0.0000001", message = "Weight can't be less than zero!")
     private double weight;
     private State state;
+    @Pattern(regexp = "(^[-]?[0-9]*.?[0-9]*$)", message = "Latitude should be a number!")
+    @NotBlank(message = "Latitude can't be empty!")
     private String latitude;
+    @Pattern(regexp = "(^[-]?[0-9]*.?[0-9]*$)", message = "Longitude should be a number!")
+    @NotBlank(message = "Longitude name can't be empty!")
     private String longitude;
 
     public Scooter() {

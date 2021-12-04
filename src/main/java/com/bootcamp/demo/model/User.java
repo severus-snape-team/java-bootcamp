@@ -10,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class User implements UserDetails {
     @NotBlank(message = "Name can't be empty")
@@ -35,13 +32,17 @@ public class User implements UserDetails {
         this.email = "";
         this.password = "";
         this.authorities = new ArrayList<>();
+        this.authorities.add(new HashMap<>());
+        this.authorities.get(0).put("authority", "USER");
     }
 
-    public User(String name, String email, String password, List<Map<String, String>> authorities) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.authorities = authorities;
+        this.authorities = new ArrayList<>();
+        this.authorities.add(new HashMap<>());
+        this.authorities.get(0).put("authority", "USER");
     }
 
     public String getName() {

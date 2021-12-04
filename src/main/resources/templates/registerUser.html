@@ -28,53 +28,61 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
-
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 </head>
 <body>
-<div class="container">
-    <div class="inner-container">
-        <form action="@{/account/register}" th:method="post" th:action="@{/account/register}" th:object="${user}">
-            <div class="row">
-                <div class="title">
-                    <h1>Register</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label>Name: </label>
-                    <input type="text" class="form-control" th:field="*{name}" required/>
-                    <small class="text-danger" th:if="${#fields.hasErrors('name')}"
-                           th:errors="*{name}">documentName Error</small>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label>Email: </label>
-                    <input type="email" class="form-control" th:field="*{email}" required/>
-                    <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">brand
-                        Error</small>
-                </div>
-            </div>
+<div class="bg-gradient-dark pb-5">
+</div>
+<div class="bg-gradient-light pt-5">
+    <div class="inner-container mt-2">
+        <div class="table-class card bg-light text-dark between-divs">
+            <form action="@{/account/register}" th:method="post" th:action="@{/account/register}" th:object="${user}"
+                  style="width: 100%;">
+                <div class="card-header text-muted" style="width: 100%;">Register</div>
+                <div class="card-body" action="@{/admin/createScooter}" th:method="post"
+                     th:action="@{/account/register}" th:object="${user}">
 
-            <div class="row">
-                <div class="col">
-                    <label>Password: </label>
-                    <input type="password" class="form-control" th:field="*{password}" required/>
-                    <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">brand
-                        Error</small>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Name: </label>
+                            <input type="text" class="form-control" th:field="*{name}" required/>
+                            <small class="text-danger" th:if="${#fields.hasErrors('name')}"
+                                   th:errors="*{name}">documentName Error</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Email: </label>
+                            <input type="email" class="form-control" th:field="*{email}" required/>
+                            <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">brand
+                                Error</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Password: </label>
+                            <input type="password" class="form-control" th:field="*{password}" required/>
+                            <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">brand
+                                Error</small>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <input type="Submit" class="btn" name="Register" value="Register"/>
-                    <small class="text-success" th:if="${message}" th:text="${message}">Created...</small>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <input type="Submit" class="btn btn-sm btn-success" name="Register" value="Register"/>
+                            <small class="text-success" th:if="${message}" th:text="${message}">Created...</small>
+                        </div>
+                        <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: center; ">
+                            <a style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"
+                               th:href="@{/login}">Back</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-3"
-                     style="display: flex; justify-content:right; align-items: end; padding-right:0; ">
-                    <a style=" margin-right: 0" class="btn" th:href="@{/admin/scooters/}">Back</a>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

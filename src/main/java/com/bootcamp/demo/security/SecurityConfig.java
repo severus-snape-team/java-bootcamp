@@ -24,9 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/public/**").permitAll()
                 .antMatchers("/actuator/health").permitAll()
                 .antMatchers("/account/register").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/accessDenied").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
@@ -50,12 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        var inMemoryAuth = auth.inMemoryAuthentication();
-//        inMemoryAuth.withUser("severus.snape.team@gmail.com").password("{noop}xxx").authorities("ADMIN", "USER");
-//        inMemoryAuth.withUser("albus.dumbledore.team@gmail.com").password("{noop}xxx").authorities("ADMIN", "USER");
-//        inMemoryAuth.withUser("admin1@gmail.com").password("{noop}xxx").roles("ADMIN");
-//        inMemoryAuth.withUser("admin2@gmail.com").password("{noop}xxx").roles("ADMIN");
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(userAuthenticationProvider);
     }
 

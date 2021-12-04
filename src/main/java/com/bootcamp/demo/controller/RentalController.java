@@ -39,6 +39,7 @@ public class RentalController {
     @GetMapping("/rentalScooters")
     public String viewAllScooters(Model model) throws ExecutionException, InterruptedException {
         model.addAttribute("scooters", this.scooterService.returnAvailableScooters());
+        model.addAttribute("userName", userService.getUserByEmail(getContext().getAuthentication().getPrincipal().toString()).getName());
         return "listAvailableScooters";
     }
 
@@ -66,7 +67,7 @@ public class RentalController {
         }
         model.addAttribute("scooter", scooter);
         model.addAttribute("userName", userService.getUserByEmail(getContext().getAuthentication().getPrincipal().toString()).getName());
-        return "getScooterDetails";
+        return "rentScooter";
     }
 
     @GetMapping(value = "/rentScooter", params = "Rent")
