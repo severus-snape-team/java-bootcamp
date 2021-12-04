@@ -128,7 +128,7 @@ public class ScooterController {
     public String indexAdmin(Model model) throws ExecutionException, InterruptedException {
         model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         model.addAttribute("scooters", this.scooterService.returnAllScooters());
-
+        model.addAttribute("states", this.scooterService.returnNumberStates());
         return "index";
     }
 }
