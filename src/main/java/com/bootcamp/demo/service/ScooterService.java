@@ -55,6 +55,6 @@ public class ScooterService {
         long inService = this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.IN_SERVICE)).count();
         long broken = this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.BROKEN)).count();
         long outOfUse = this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.OUT_OF_USE)).count();
-        return List.of(inUse, inService, broken, outOfUse);
+        return List.of(inUse, outOfUse, broken, inService);
     }
 }
