@@ -96,40 +96,40 @@
             </div>
         </div>
     </div>
-    <section class="pt-3 pb-4" id="count-stats">
+    <section class="pt-3 pb-4" id="count-stats" >
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
                     <div class="row">
                         <div class="col-md-3 position-relative">
                             <div class="p-3 text-center">
-                                <h1 class="text-gradient text-primary"><span id="state1" countto="300">100</span>+</h1>
+                                <h1 class="text-gradient text-primary"><span id="state1" countto="300" th:text="${states.get(0)}"></span></h1>
                                 <h5 class="mt-3">In use</h5>
-                                <p class="text-sm">Dummy text</p>
+                                <!--<p class="text-sm">Dummy text</p>-->
                             </div>
                             <hr class="vertical dark">
                         </div>
                         <div class="col-md-3 position-relative">
                             <div class="p-3 text-center">
-                                <h1 class="text-gradient text-success"> <span id="state2" countto="100">100</span>+</h1>
+                                <h1 class="text-gradient text-success"> <span id="state2" countto="100" th:text="${states.get(1)}"></span></h1>
                                 <h5 class="mt-3">Out of use</h5>
-                                <p class="text-sm">Dummy text</p>
+                                <!--<p class="text-sm">Dummy text</p>-->
                             </div>
                             <hr class="vertical dark">
                         </div>
                         <div class="col-md-3 position-relative">
                             <div class="p-3 text-center">
-                                <h1 class="text-gradient text-danger"> <span id="state3" countto="100">100</span>+</h1>
+                                <h1 class="text-gradient text-danger"> <span id="state3" countto="100" th:text="${states.get(2)}"></span></h1>
                                 <h5 class="mt-3">Broken</h5>
-                                <p class="text-sm">Dummy text</p>
+                                <!--<p class="text-sm">Dummy text</p>-->
                             </div>
                             <hr class="vertical dark">
                         </div>
                         <div class="col-md-3">
                             <div class="p-3 text-center">
-                                <h1 class="text-gradient text-warning" id="state4" countto="39">39</h1>
+                                <h1 class="text-gradient text-warning" id="state4" countto="39" th:text="${states.get(3)}"></h1>
                                 <h5 class="mt-3">In service</h5>
-                                <p class="text-sm">Dummy text</p>
+                                <!--<p class="text-sm">Dummy text</p>-->
                             </div>
                             <hr class="vertical dark">
                         </div>

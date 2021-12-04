@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
@@ -119,7 +121,7 @@ public class ScooterController {
     public String index(Model model) throws ExecutionException, InterruptedException {
         model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         model.addAttribute("scooters", this.scooterService.returnAllScooters());
-
+        model.addAttribute("states", this.scooterService.returnNumberStates());
         return "index";
     }
     @GetMapping("/admin")
