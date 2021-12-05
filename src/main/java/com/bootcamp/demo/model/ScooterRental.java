@@ -1,5 +1,7 @@
 package com.bootcamp.demo.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -41,9 +43,6 @@ public class ScooterRental {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ScooterRental scooterRental = (ScooterRental) o;
-        return scooterDocumentName.equals(scooterRental.scooterDocumentName) && startDate.compareTo(scooterRental.startDate) == 0;
+        return EqualsBuilder.reflectionEquals(this, o);
     }
 }

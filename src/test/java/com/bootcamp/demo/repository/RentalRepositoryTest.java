@@ -100,6 +100,7 @@ class RentalRepositoryTest {
         when(queryDocumentSnapshotListMock.iterator()).thenReturn(iteratorMock);
         when(iteratorMock.hasNext()).thenReturn(Boolean.TRUE, Boolean.FALSE);
         when(iteratorMock.next()).thenReturn(queryDocumentSnapshotMock, queryDocumentSnapshotMock);
+        when(queryDocumentSnapshotMock.getString(anyString())).thenReturn("01/01/2001 10:10:10");
 
         repository.getRentals();
     }
