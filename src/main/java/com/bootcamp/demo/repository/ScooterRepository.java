@@ -1,5 +1,6 @@
 package com.bootcamp.demo.repository;
 
+import com.bootcamp.demo.model.Repair;
 import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.model.ScooterRental;
 import com.bootcamp.demo.model.State;
@@ -10,6 +11,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import org.slf4j.Logger;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
@@ -27,10 +29,13 @@ import java.util.stream.StreamSupport;
 
 import static java.lang.System.getProperty;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.slf4j.LoggerFactory.getLogger;
 
 @ConditionalOnProperty("firebaseKey")
 @Repository
 public class ScooterRepository {
+
+    private static final Logger LOGGER = getLogger(ScooterRepository.class);
     private Firestore firestoreDB;
 
     @PostConstruct
@@ -77,6 +82,12 @@ public class ScooterRepository {
             case "prodYear":
                 doc.update(fieldName, Integer.parseInt(newValue));
                 break;
+            case "latitude":
+                doc.update(fieldName, newValue);
+                break;
+            case "longitude":
+                doc.update(fieldName, newValue);
+                break;
             default:
                 break;
         }
@@ -93,7 +104,9 @@ public class ScooterRepository {
         List<QueryDocumentSnapshot> returned = future.get().getDocuments();
         ArrayList<Scooter> scooters = new ArrayList<>();
         for (QueryDocumentSnapshot qds : returned) {
-            scooters.add(qds.toObject(Scooter.class));
+            var scooter = qds.toObject(Scooter.class);
+            scooter.setRepairs(loadRepairsFor(scooter));
+            scooters.add(scooter);
         }
         return scooters;
     }
@@ -112,6 +125,29 @@ public class ScooterRepository {
         } catch (Exception ignored) {
         }
         return null;
+    }
+
+    public void insertReparation(Scooter scooter, Repair repair){
+        this.firestoreDB.collection("scooters").document(scooter.getDocumentName()).collection("repairs").add(repair);
+    }
+
+    public List<Repair> loadRepairsFor(Scooter scooter){
+        return StreamSupport.stream(this.firestoreDB.collection("scooters").document(scooter.getDocumentName()).collection("repairs")
+                .listDocuments().spliterator(), false).map(this::toRepair).collect(Collectors.toList());
+    }
+
+    public Repair toRepair(DocumentReference docRef){
+        var repair = new Repair();
+        try {
+            var documentSnapshot = docRef.get().get();
+            if(documentSnapshot.exists()){
+                repair = documentSnapshot.toObject(Repair.class);
+                LOGGER.info("loaded repair entry: " + repair);
+            }
+        } catch (Exception e){
+            LOGGER.error("Failed to load repairs", e);
+        }
+        return repair;
     }
 
     @VisibleForTesting

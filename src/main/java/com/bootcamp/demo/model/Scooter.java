@@ -4,6 +4,7 @@ import com.bootcamp.demo.validation.ProductionYearConstraint;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 public class Scooter {
@@ -30,6 +31,7 @@ public class Scooter {
     @Pattern(regexp = "(^[-]?[0-9]*.?[0-9]*$)", message = "Longitude should be a number!")
     @NotBlank(message = "Longitude name can't be empty!")
     private String longitude;
+    private List<Repair> repairs;
 
     public Scooter() {
         // firestore requires a constructor without parameters
@@ -117,6 +119,14 @@ public class Scooter {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public List<Repair> getRepairs() {
+        return repairs;
+    }
+
+    public void setRepairs(List<Repair> repairs) {
+        this.repairs = repairs;
     }
 
     @Override
