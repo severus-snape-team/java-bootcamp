@@ -1,5 +1,6 @@
 package com.bootcamp.demo.service;
 
+import com.bootcamp.demo.model.Repair;
 import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.model.State;
 import com.bootcamp.demo.repository.ScooterRepository;
@@ -56,5 +57,10 @@ public class ScooterService {
         long broken = this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.BROKEN)).count();
         long outOfUse = this.scooterRepository.readScooters().stream().filter(s -> s.getState().equals(State.OUT_OF_USE)).count();
         return List.of(inUse, outOfUse, broken, inService);
+    }
+
+    public void insertReparation(String documentName, Repair repair){
+        Scooter scooter = scooterRepository.getScooterByName(documentName);
+        this.scooterRepository.insertReparation(scooter, repair);
     }
 }

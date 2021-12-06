@@ -1,22 +1,23 @@
 package com.bootcamp.demo.controller;
 
 import com.bootcamp.demo.controller.qrcode.QRCodeGenerator;
+import com.bootcamp.demo.model.Repair;
 import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.service.ScooterService;
 import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 import static java.lang.System.getProperty;
@@ -130,5 +131,35 @@ public class ScooterController {
         model.addAttribute("scooters", this.scooterService.returnAllScooters());
         model.addAttribute("states", this.scooterService.returnNumberStates());
         return "index";
+    }
+
+    @GetMapping("/admin/repair")
+    public String registerReparation(Model model){
+        Repair repair = new Repair();
+        model.addAttribute("repair", repair);
+        return "reparations";
+    }
+
+    @InitBinder
+    private void dateBinder(WebDataBinder binder){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+        binder.registerCustomEditor(Date.class, editor);
+    }
+
+    @PostMapping(value = "/admin/addRepair", params = "AddRepair")
+    public String submitReparation(@ModelAttribute("repair") Repair repair){
+        this.scooterService.insertReparation(repair.getScooterDoc(), repair);
+        return "redirect:/admin/repair";
+    }
+
+    @GetMapping("/admin/repairs/{scooterName}")
+    public String viewAllRepairs(@PathVariable String scooterName, Model model) throws ExecutionException, InterruptedException{
+        List<Scooter> scooters = scooterService.returnAllScooters();
+        Scooter scooter = scooters.stream().filter(s-> s.getDocumentName().equals(scooterName)).findFirst().get();
+        System.out.println(scooter.getDocumentName());
+        System.out.println(scooter.getRepairs().toString());
+        model.addAttribute("repairs", scooter.getRepairs());
+        return "listRepairs";
     }
 }
