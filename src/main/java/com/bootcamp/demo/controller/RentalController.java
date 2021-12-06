@@ -1,8 +1,10 @@
 package com.bootcamp.demo.controller;
 
 import com.bootcamp.demo.controller.qrcode.QRCodeGenerator;
+import com.bootcamp.demo.model.RentalHistory;
 import com.bootcamp.demo.model.Scooter;
 import com.bootcamp.demo.model.ScooterRental;
+import com.bootcamp.demo.service.RentalHistoryService;
 import com.bootcamp.demo.service.RentalService;
 import com.bootcamp.demo.service.ScooterService;
 import com.bootcamp.demo.service.UserService;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,11 +32,13 @@ public class RentalController {
     private final ScooterService scooterService;
     private final RentalService rentalService;
     private final UserService userService;
+    private final RentalHistoryService rentalHistoryService;
 
-    public RentalController(ScooterService scooterService, RentalService rentalService, UserService userService) {
+    public RentalController(ScooterService scooterService, RentalService rentalService, UserService userService, RentalHistoryService rentalHistoryService) {
         this.scooterService = scooterService;
         this.rentalService = rentalService;
         this.userService = userService;
+        this.rentalHistoryService = rentalHistoryService;
     }
 
     @GetMapping("/rentalScooters")
@@ -59,7 +64,7 @@ public class RentalController {
         if (scooterRental != null) {
             BigDecimal cost = rentalService.getRentalCost(scooterName);
             long time = rentalService.getTimeRental(scooterName);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
             String startDate = formatter.format(rentalService.getRentalByName(scooterName).getStartDate());
             model.addAttribute("rentalCost", cost);
             model.addAttribute("rentalTime", time);
@@ -108,6 +113,9 @@ public class RentalController {
 
     @PostMapping(value = "/rentScooter", params = "Stop")
     public String stopRental(@ModelAttribute("scooter") Scooter scooter) {
+        ScooterRental scooterRental = this.rentalService.getRentalByName(scooter.getDocumentName());
+        String email = getContext().getAuthentication().getPrincipal().toString();
+        this.rentalHistoryService.saveRentalHistory(new RentalHistory(email, scooter.getDocumentName(), scooterRental.getStartDate(), new Date(), rentalService.getRentalCost(scooter.getDocumentName())));
         this.rentalService.deleteRental(scooter.getDocumentName());
         scooter = this.scooterService.getScooterByName(scooter.getDocumentName());
         return getStopRental(scooter);
@@ -131,5 +139,28 @@ public class RentalController {
             }
         });
         return emitter;
+    }
+
+    @GetMapping("")
+    public String showRentalHistory(Model model) {
+        String email = getContext().getAuthentication().getPrincipal().toString();
+        model.addAttribute("histories", this.rentalHistoryService.getRentalHistoryForUser(email));
+        model.addAttribute("userName", userService.getUserByEmail(email).getName());
+        model.addAttribute("statistics", rentalHistoryService.getStatistics(email));
+        return "redirect:/user/sorted?field=startDate&order=asc";
+    }
+
+    @GetMapping("/sorted")
+    public String showSortedRentalHistory(@RequestParam(name = "field") final String field, @RequestParam(name = "order") final String order, Model model) {
+        String email = getContext().getAuthentication().getPrincipal().toString();
+        model.addAttribute("histories", this.rentalHistoryService.getSortedRentalHistoryForUser(email, field, order));
+        model.addAttribute("userName", userService.getUserByEmail(email).getName());
+
+        model.addAttribute("historyEmpty", this.rentalHistoryService.getRentalHistoryForUser(email).size() == 0 ? "true" : "false");
+        model.addAttribute("field", field);
+        model.addAttribute("order", order);
+        model.addAttribute("reverseOrder", order.equals("asc") ? "desc" : "asc");
+        model.addAttribute("statistics", rentalHistoryService.getStatistics(email));
+        return "userHistory";
     }
 }

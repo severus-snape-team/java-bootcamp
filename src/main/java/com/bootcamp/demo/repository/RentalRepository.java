@@ -55,10 +55,10 @@ public class RentalRepository {
             List<QueryDocumentSnapshot> documents = this.firestoreDB.collection("rentals").get().get().getDocuments();
             List<ScooterRental> rentals = new ArrayList<>();
             for (QueryDocumentSnapshot doc : documents) {
-//                String scooterDocumentName = doc.getString("scooterDocumentName");
-//                Date startDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(doc.getString("startDate"));
-//                rentals.add(new ScooterRental(scooterDocumentName, startDate));
-                rentals.add(doc.toObject(ScooterRental.class));
+                String scooterDocumentName = doc.getString("scooterDocumentName");
+                Date startDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(doc.getString("startDate"));
+                rentals.add(new ScooterRental(scooterDocumentName, startDate));
+//                rentals.add(doc.toObject(ScooterRental.class));
             }
             return rentals;
         } catch (Exception e) {

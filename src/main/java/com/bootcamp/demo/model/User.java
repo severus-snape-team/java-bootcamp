@@ -15,12 +15,14 @@ import java.util.*;
 public class User implements UserDetails {
     @NotBlank(message = "Name can't be empty")
     @Length(min = 3, message = "Too few characters")
+    @Pattern(regexp = "^[A-Za-z-'\\s]*$", message = "Invalid name!")
     private String name;
     @Email(message = "Invalid email address")
     private String email;
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Password should contain 8 characters, uppercase and lowercase letters, numbers and special characters")
     private String password;
     private List<Map<String, String>> authorities;
+    public String username;
     private Boolean accountNonExpired;
     private Boolean accountNonLocked;
     private Boolean credentialsNonExpired;
@@ -80,7 +82,11 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
