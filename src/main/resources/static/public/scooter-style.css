@@ -49,7 +49,7 @@
 /*    box-shadow: none;*/
 /*}*/
 
-.btn{
+.btn {
     min-width: 88px;
     min-height: 40px;
     margin-right: 10px;
@@ -78,7 +78,7 @@
     border-radius: 10px;
 }
 
-.mapContainer{
+.mapContainer {
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -102,10 +102,7 @@
 /*}*/
 
 
-
-
-
-body{
+body {
     /*background-image:url("../public/backgroundCreateScooterForm.png");*/
     /*background-repeat: no-repeat;*/
     /*background-attachment: fixed;*/
@@ -113,7 +110,7 @@ body{
     /*background-color: #212529;*/
     min-height: 100vh;
     margin: 0;
-    box-shadow: inset 0 0 0 1000px rgba(119, 136, 153,.45);
+    box-shadow: inset 0 0 0 1000px rgba(119, 136, 153, .45);
     /*filter: grayscale(100%);*/
     /*backdrop-filter: grayscale(1);*/
     /*backdrop-filter: contrast(.8);*/
@@ -123,39 +120,44 @@ body{
     line-height: 1.4;
     color: #f5f5f5;
 
-    -ms-overflow-style: none;  /* IE and Edge */
+    -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none;
 }
+
 body::-webkit-scrollbar {
     display: none;
 }
 
 .bg-gradient-dark {
-    background-image: linear-gradient(310deg,#354d65,#141727);
+    background-image: linear-gradient(310deg, #354d65, #141727);
     min-height: 50vh;
     border-bottom-left-radius: 270px 15px;
     border-bottom-right-radius: 270px 15px;
     position: relative;
 }
+
 .bg-gradient-light {
-    background-image: linear-gradient(310deg,#e9ecef,#fff);
+    background-image: linear-gradient(310deg, #e9ecef, #fff);
     min-height: 50vh;
     margin-top: -20px !important;
 }
-.title{
+
+.title {
     text-align: center;
-    margin:15px;
+    margin: 15px;
     /*text-decoration: underline;*/
 }
-form{
+
+form {
     /*background-color: rgba(0, 0, 0,.6);*/
     margin: auto;
     border-radius: 10px;
 }
 
-.table-class{
+.table-class {
     font-size: 16px;
 }
+
 /*.form-control, .form-select{*/
 /*    background-color: rgb(242, 232, 207);*/
 /*    border: rgb(79, 119, 45) solid 2px;*/
@@ -173,7 +175,7 @@ form{
 /*    box-shadow: none;*/
 /*}*/
 
-.btn-outline{
+.btn-outline {
     width: 88px;
     height: 46px;
     margin-right: 10px;
@@ -184,59 +186,83 @@ form{
     box-shadow: 0px 0px 0px 1.5px #0d6efd;
 }
 
-.btn-outline:hover{
+.btn-outline:hover {
     color: rgb(242, 232, 207);
     background: #0d6efd;
 }
-a{color: #6ba7ff;}
-.title{
+
+a {
+    color: #6ba7ff;
+}
+
+.title {
     margin: 1.5rem 0rem;
 }
 
-.mb-3{
+.mb-3 {
     margin: 0.5rem 0rem;
 }
-.card{
+
+.card {
     /*background-color: rgba(0, 0, 0,.6);*/
     background-color: rgba(31, 31, 35, 0.8);
     margin: auto;
     border-radius: 10px;
-    -webkit-box-shadow: 2px 1px 11px 5px rgba(64,109,115,0.34);
-    box-shadow: 2px 1px 11px 5px rgba(64,109,115,0.34);
+    -webkit-box-shadow: 2px 1px 11px 5px rgba(64, 109, 115, 0.34);
+    box-shadow: 2px 1px 11px 5px rgba(64, 109, 115, 0.34);
 }
-.between-divs{
+
+.between-divs {
     z-index: 2;
     margin-top: -50vh !important;
 }
+
 @media only screen
-and (min-width : 1224px) {
-    .inner-container{
+and (min-width: 1224px) {
+    .inner-container {
         padding-top: 5%;
         width: 50%;
         margin-left: auto;
         margin-right: auto;
     }
-    .maps-container{
+
+    .maps-container {
         width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
-    .welcome-user{
+
+    .welcome-user {
         display: block;
     }
 }
+
 @media only screen
-and (max-width : 1224px) {
-    .inner-container{
+and (max-width: 1224px) {
+    .inner-container {
         padding-top: 3%;
         width: 100%;
     }
-    .maps-container{
+
+    .maps-container {
         width: 90%;
         margin-left: auto;
         margin-right: auto;
     }
-    .welcome-user{
+
+    .welcome-user {
         display: none;
     }
+}
+
+#rent_btn {
+    width: 100%;
+}
+
+#stop_btn {
+    width: 100%;
+}
+
+#register_btn {
+    width: 100%;
 }

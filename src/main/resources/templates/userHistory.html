@@ -34,6 +34,7 @@
             console.log([[${statistics}]]);
             data.addRows([[${statistics}]]);
             var options = {
+                'colors': ['#8B008B'],
                 'title': 'Money spent in the last 7 days'
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));
@@ -49,7 +50,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
-
+<style>
+    .bg-gradient-dark{
+        background: rgb(65,0,99);
+        background: linear-gradient(90deg, rgba(65,0,99,1) 0%, rgba(98,0,99,1) 47%, rgba(136,0,99,1) 100%);
+    }
+</style>
 </head>
 <body>
 <div class="bg-gradient-dark pb-5">
@@ -78,21 +84,25 @@
             <table th:if="${historyEmpty=='false'}" class="table card-body table-hover table-light table-striped">
                 <thead>
                 <tr>
-                    <th style="border-color: rgb(242, 232, 207); text-align: center;"><a style="text-decoration: none"
-                                                                                         th:href="@{'/user/sorted'+'?field=scooterDocumentName&order=' + ${reverseOrder}}">Scooter
+                    <th style="border-color: rgb(242, 232, 207); text-align: center;"><a
+                            onClick="window.location.reload();" style="text-decoration: none"
+                            th:href="@{'/user/sorted'+'?field=scooterDocumentName&order=' + ${reverseOrder}}">Scooter
                         Name <img src="https://img.icons8.com/color/20/000000/sort.png"/></a></th>
-                    <th style="border-color: rgb(242, 232, 207); text-align: center;"><a style="text-decoration: none"
-                                                                                         th:href="@{'/user/sorted'+'?field=startDate&order=' + ${reverseOrder}}">Start
+                    <th style="border-color: rgb(242, 232, 207); text-align: center;"><a
+                            onClick="window.location.reload();" style="text-decoration: none"
+                            th:href="@{'/user/sorted'+'?field=startDate&order=' + ${reverseOrder}}">Start
                         Date <img src="https://img.icons8.com/color/20/000000/sort.png"/></a>
                     </th>
-                    <th style="border-color: rgb(242, 232, 207); text-align: center;"><a style="text-decoration: none"
-                                                                                         th:href="@{'/user/sorted'+'?field=endDate&order=' + ${reverseOrder}}">End
+                    <th style="border-color: rgb(242, 232, 207); text-align: center;"><a
+                            onClick="window.location.reload();" style="text-decoration: none"
+                            th:href="@{'/user/sorted'+'?field=endDate&order=' + ${reverseOrder}}">End
                         Date <img src="https://img.icons8.com/color/20/000000/sort.png"/></a></th>
-                    <th style="border-color: rgb(242, 232, 207); text-align: center;"><a style="text-decoration: none"
-                                                                                         th:href="@{'/user/sorted'+'?field=tripCost&order=' + ${reverseOrder}}">Trip
+                    <th style="border-color: rgb(242, 232, 207); text-align: center;"><a
+                            onClick="window.location.reload();" style="text-decoration: none"
+                            th:href="@{'/user/sorted'+'?field=tripCost&order=' + ${reverseOrder}}">Trip
                         Cost <img src="https://img.icons8.com/color/20/000000/sort.png"/></a></th>
 
-                    <th style="border-color: rgb(242, 232, 207); text-align: center;"></th>
+                    <!--                    <th style="border-color: rgb(242, 232, 207); text-align: center;"></th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -110,11 +120,11 @@
                         <td th:text="${history.tripCost}"
                             style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title
                         </td>
-                        <td style="border-color: rgb(242, 232, 207); text-align: center;"><a
-                                class="btn btn-primary btn-sm" style="padding-top:8px;"
-                                th:href="@{/user/rentalScooters/{id}(id=${history.scooterDocumentName})}">Rent
-                            Again</a>
-                        </td>
+                        <!--                        <td style="border-color: rgb(242, 232, 207); text-align: center;"><a-->
+                        <!--                                class="btn btn-primary btn-sm" style="padding-top:8px;"-->
+                        <!--                                th:href="@{/user/rentalScooters/{id}(id=${history.scooterDocumentName})}">Rent-->
+                        <!--                            Again</a>-->
+                        <!--                        </td>-->
                     </tr>
                 </div>
                 </tbody>

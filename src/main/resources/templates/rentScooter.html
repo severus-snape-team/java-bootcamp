@@ -50,6 +50,13 @@
         }
     </style>
     <script>
+        function showAvailability() {
+            let state = document.getElementById('state');
+            if (state.textContent !== 'OUT_OF_USE')
+                alert("Scooter is unavailable for renting!");
+        }
+    </script>
+    <script>
         const sse = new EventSource('[[@{/user/sse}]]' + '/[[${scooter.documentName}]]');
         sse.onmessage = function (evt) {
             document.getElementById('rent_btn').style.display = "none";
@@ -59,11 +66,17 @@
 
         };
     </script>
+    <style>
+        .bg-gradient-dark {
+            background: rgb(65,0,99);
+            background: linear-gradient(90deg, rgba(65,0,99,1) 0%, rgba(98,0,99,1) 47%, rgba(136,0,99,1) 100%);
+        }
+    </style>
 </head>
 <body>
 <div class="bg-gradient-dark pb-5">
     <nav class="navbar">
-        <a class="navbar-brand m-0" th:href="@{/user/rentalScooters}">
+        <a class="navbar-brand m-0" th:href="@{/user}">
             <lottie-player src="../../public/scooter_animation.json" class="d-inline-block align-top"
                            background="transparent" speed="1" style="width: 30px; height: 30px;" loop
                            autoplay></lottie-player>
@@ -102,7 +115,7 @@
                     </div>
                     <div class="row">
                         <div class="col"><p class="field_name">State: </p></div>
-                        <div class="col"><p class="attr_name" th:text="*{state}">State</p></div>
+                        <div id="state" class="col"><p class="attr_name" th:text="*{state}">State</p></div>
                     </div>
                     <div class="row">
                         <div class="col"><p class="field_name">Production Year: </p></div>
@@ -140,7 +153,8 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <input type="Submit" style="display: inline" id="rent_btn" class="btn btn-sm btn-success"
+                            <input onclick="showAvailability()" type="Submit" style="display: inline" id="rent_btn"
+                                   class="btn btn-sm btn-success"
                                    name="Rent"
                                    value="Rent"/>
                             <input type="Submit" style="display: none" id="stop_btn" class="btn btn-sm btn-success"
@@ -148,11 +162,11 @@
                                    value="Stop"
                                    onclick="if (!confirm('Are you sure you want to end this rental?')) return false"/>
                         </div>
-                        <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: center; ">
-                            <a
-                                    style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"
-                                    th:href="@{/user/rentalScooters}">Back</a>
-                        </div>
+                        <!--                        <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: center; ">-->
+                        <!--                            <a-->
+                        <!--                                    style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"-->
+                        <!--                                    th:href="@{/user}">Back</a>-->
+                        <!--                        </div>-->
 
                     </div>
                 </div>

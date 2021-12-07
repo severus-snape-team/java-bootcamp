@@ -5,7 +5,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDZKXK3TET"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-NDZKXK3TET');
@@ -15,12 +19,15 @@
 
     <title>Login page</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="../public/login.css" rel="stylesheet">
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
 
 </head>
 <body class="text-center">
@@ -28,13 +35,15 @@
     <h2 class="h3 mb-3 fw-normal">Please sign in</h2>
     <form th:action="@{/login}" method="post">
 
-        <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required autofocus/>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required
+               autofocus/>
 
 
-        <input type="password" id="password" class="form-control" name="password" placeholder="Password" required />
-        <input id="submit" type="submit" class="w-100 btn btn-lg btn-primary" value="Log in" />
+        <input type="password" id="password" class="form-control" name="password" placeholder="Password" required/>
+        <input id="submit" type="submit" class="w-100 btn btn-lg btn-primary" value="Log in"/>
     </form>
     <p th:if="${loginError}" class="error">Wrong user or password</p>
+    <a th:href="@{/account/register}">Create an account</a>
 </div>
 </body>
 </html>
