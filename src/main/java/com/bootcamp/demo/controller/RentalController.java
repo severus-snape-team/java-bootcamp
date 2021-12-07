@@ -129,7 +129,6 @@ public class RentalController {
         nonBlockingService.execute(() -> {
             try {
                 try {
-                    //model.addAttribute("show_stop_btn","show_stop_btn");
                     emitter.send(this.rentalService.getRentalCost(scooterName));
                 } catch (Exception ignored) {
                 }
