@@ -152,12 +152,13 @@ public class ScooterController {
     @PostMapping(value = "/admin/addRepair", params = "AddRepair")
     public String submitReparation(@ModelAttribute("repair") Repair repair){
         this.scooterService.insertReparation(repair.getScooterDoc(), repair);
-        return "redirect:/admin/repair";
+        return "reparations";
     }
 
     @GetMapping("/admin/repairs/{scooterName}")
     public String viewAllRepairs(@PathVariable String scooterName, Model model) throws ExecutionException, InterruptedException{
-        Scooter scooter = scooterService.getScooterByName(scooterName);
+        List<Scooter> scooters = scooterService.returnAllScooters();
+        Scooter scooter = scooters.stream().filter(s-> s.getDocumentName().equals(scooterName)).findFirst().get();
         model.addAttribute("scooter", scooter);
         model.addAttribute("repairs", scooter.getRepairs());
         return "listRepairs";

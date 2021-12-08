@@ -65,7 +65,7 @@
         <div th:each="repair : ${repairs}">
           <tr>
             <td th:text="${repair.id}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
-            <td th:text="${repair.date}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
+            <td th:text="${repair.getDateFormatted()}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
             <td th:text="${repair.description}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
             <td th:text="${repair.totalCost}" style="padding-top:20px; text-align: center; border-color: rgb(242, 232, 207);"> Title </td>
           </tr>
