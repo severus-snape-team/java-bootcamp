@@ -133,9 +133,11 @@ public class ScooterController {
         return "index";
     }
 
-    @GetMapping("/admin/repair")
-    public String registerReparation(Model model){
+    @GetMapping("/admin/repair/{scooterName}")
+    public String registerReparation(@PathVariable String scooterName, Model model){
+        Scooter scooter = scooterService.getScooterByName(scooterName);
         Repair repair = new Repair();
+        repair.setScooterDoc(scooter.getDocumentName());
         model.addAttribute("repair", repair);
         return "reparations";
     }
@@ -155,10 +157,8 @@ public class ScooterController {
 
     @GetMapping("/admin/repairs/{scooterName}")
     public String viewAllRepairs(@PathVariable String scooterName, Model model) throws ExecutionException, InterruptedException{
-        List<Scooter> scooters = scooterService.returnAllScooters();
-        Scooter scooter = scooters.stream().filter(s-> s.getDocumentName().equals(scooterName)).findFirst().get();
-        System.out.println(scooter.getDocumentName());
-        System.out.println(scooter.getRepairs().toString());
+        Scooter scooter = scooterService.getScooterByName(scooterName);
+        model.addAttribute("scooter", scooter);
         model.addAttribute("repairs", scooter.getRepairs());
         return "listRepairs";
     }
