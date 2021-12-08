@@ -85,7 +85,6 @@ public class RentalController {
         } catch (WriterException | IOException e) {
             e.printStackTrace();
         }
-        m.addAttribute("message", "Successfully rented...");
         return "redirect:/user/rentalScooters/" + scooter.getDocumentName();
     }
 
@@ -99,16 +98,17 @@ public class RentalController {
         } catch (WriterException | IOException e) {
             e.printStackTrace();
         }
-        this.rentalService.saveRental(scooter.getDocumentName());
-        m.addAttribute("message", "Successfully rented...");
-        scooter = this.scooterService.getScooterByName(scooter.getDocumentName());
-//        return "getScooterDetails";
+        try {
+            this.rentalService.saveRental(scooter.getDocumentName());
+            scooter = this.scooterService.getScooterByName(scooter.getDocumentName());
+        } catch (RuntimeException ignored) {
+        }
         return getRentScooter(scooter, m);
     }
 
     @GetMapping(value = "/rentScooter", params = "Stop")
     public String getStopRental(@ModelAttribute("scooter") Scooter scooter) {
-        return "redirect:/user/rentalScooters";
+        return "redirect:/user";
     }
 
     @PostMapping(value = "/rentScooter", params = "Stop")
@@ -129,7 +129,6 @@ public class RentalController {
         nonBlockingService.execute(() -> {
             try {
                 try {
-                    //model.addAttribute("show_stop_btn","show_stop_btn");
                     emitter.send(this.rentalService.getRentalCost(scooterName));
                 } catch (Exception ignored) {
                 }

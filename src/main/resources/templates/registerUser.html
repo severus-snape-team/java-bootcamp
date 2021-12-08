@@ -40,7 +40,7 @@
             <form action="@{/account/register}" th:method="post" th:action="@{/account/register}" th:object="${user}"
                   style="width: 100%;">
                 <div class="card-header text-muted" style="width: 100%;">Register</div>
-                <div class="card-body" action="@{/admin/createScooter}" th:method="post"
+                <div class="card-body" action="@{/account/register}" th:method="post"
                      th:action="@{/account/register}" th:object="${user}">
 
                     <div class="row">
@@ -72,13 +72,14 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <input type="Submit" class="btn btn-sm btn-success" name="Register" value="Register"/>
+                            <input id="register_btn" type="Submit" class="btn btn-sm btn-success" name="Register" value="Register"/>
                             <small class="text-success" th:if="${message}" th:text="${message}">Created...</small>
-                        </div>
-                        <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: center; ">
-                            <a style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"
-                               th:href="@{/login}">Back</a>
-                        </div>
+                            <small class="text-danger" th:if="${alreadyExists}" th:text="${alreadyExists}">User already exists...</small>
+<!--                        </div>-->
+<!--                        <div class="col-md-6 mb-3" style="display: flex; justify-content:right; align-items: center; ">-->
+<!--                            <a style=" margin-right: 0; padding-top:8px;" class="btn btn-sm btn-primary"-->
+<!--                               th:href="@{/login}">Back</a>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </form>

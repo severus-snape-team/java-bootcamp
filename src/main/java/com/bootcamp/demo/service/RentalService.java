@@ -45,6 +45,10 @@ public class RentalService {
         return this.rentalRepository.getRentalByScooterDocName(scooterDocumentName);
     }
 
+    public boolean isScooterAvailable(String scooterDocumentName) {
+        return this.scooterRepository.getScooterByName(scooterDocumentName).getState().equals(State.OUT_OF_USE);
+    }
+
     public long getTimeRental(String scooterDocumentName) {
         ScooterRental scooterRental = rentalRepository.getRentalByScooterDocName(scooterDocumentName);
         Date startDate = scooterRental.getStartDate();

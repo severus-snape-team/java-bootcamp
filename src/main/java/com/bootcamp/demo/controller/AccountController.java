@@ -29,8 +29,13 @@ public class AccountController {
     @PostMapping("/register")
     public String submitForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model m) {
         if (!bindingResult.hasErrors()) {
-            this.userService.saveUser(user);
-            m.addAttribute("message", "Successfully registered...");
+            try {
+                this.userService.saveUser(user);
+                m.addAttribute("message", "Successfully registered...");
+                return "redirect:/login";
+            } catch (RuntimeException re) {
+                m.addAttribute("alreadyExists", re.getMessage());
+            }
         }
         return "registerUser";
     }
