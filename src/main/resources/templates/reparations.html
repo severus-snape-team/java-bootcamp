@@ -55,25 +55,24 @@
 
 
             <form action="@{/admin/addRepair}" th:method="post" th:action="@{/admin/addRepair}" th:object="${repair}" style="width: 100%;">
-                <div class="card-header text-muted" style="width: 100%;">Add reparation</div>
-
+                <div class="card-header text-muted" style="width: 100%;">Add repair</div>
 
                 <div class="card-body" action="@{/admin/addRepair}" th:method="post" th:action="@{/admin/addRepair}" th:object="${repair}">
-                    <div  class="row">
+                <div  class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Scooter Name: </label>
+                        <input type="text" class="form-control" th:field="*{scooterDoc}" readonly/>
+                    </div>
+
                         <div  class="col-md-6 mb-3">
                             <label>Id: </label>
                             <input type="text" class="form-control" th:field="*{id}" required/>
                         </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label>Scooter Name: </label>
-                            <input type="text" class="form-control" th:field="*{scooterDoc}" required/>
-                        </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label>Reparation Date: </label>
+                            <label>Repair Date: </label>
                             <input type="date" id="start" name="trip-start"
                                     class="form-control" th:field="*{date}" required/>
                             </select>

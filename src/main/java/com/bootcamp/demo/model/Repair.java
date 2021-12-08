@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Repair {
@@ -21,6 +22,12 @@ public class Repair {
         this.date = date;
         this.description = description;
         this.totalCost = totalCost;
+    }
+
+
+    public String getDateFormatted() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        return formatter.format(date);
     }
 
     public Date getDate() {
