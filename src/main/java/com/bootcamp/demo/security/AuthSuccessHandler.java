@@ -28,7 +28,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
         SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
         String url = savedRequest.getRedirectUrl();
-        if (url.contains("/user")||url.contains("/admin")) {
+        if (url.contains("/user")||url.contains("/admin")||url.contains("/account/register")||url.contains("/actuator/health")) {
             response.sendRedirect(savedRequest.getRedirectUrl());
         } else {
             handle(request, response, authentication);

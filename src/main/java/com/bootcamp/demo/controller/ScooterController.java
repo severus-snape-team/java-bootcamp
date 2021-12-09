@@ -121,24 +121,27 @@ public class ScooterController {
     }
 
 
-//    @GetMapping("")
-//    public String index(Model model) throws ExecutionException, InterruptedException {
-//        var authorities = getContext().getAuthentication().getAuthorities();
-//        for (GrantedAuthority authority : authorities)
-//            if (authority.getAuthority().equals("ADMIN"))
-//                return "redirect:/admin";
-//        return "redirect:/user";
-//    }
-
-
     @GetMapping("")
     public String index(Model model) throws ExecutionException, InterruptedException {
         model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         model.addAttribute("scooters", this.scooterService.returnAllScooters());
         model.addAttribute("states", this.scooterService.returnNumberStates());
         var authorities = getContext().getAuthentication().getAuthorities();
-        return "index";
+        for (GrantedAuthority authority : authorities)
+            if (authority.getAuthority().equals("ADMIN"))
+                return "redirect:/admin";
+        return "redirect:/user";
     }
+
+
+//    @GetMapping("")
+//    public String index(Model model) throws ExecutionException, InterruptedException {
+//        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
+//        model.addAttribute("scooters", this.scooterService.returnAllScooters());
+//        model.addAttribute("states", this.scooterService.returnNumberStates());
+//        var authorities = getContext().getAuthentication().getAuthorities();
+//        return "index";
+//    }
 
     @GetMapping("/admin")
     public String indexAdmin(Model model) throws ExecutionException, InterruptedException {

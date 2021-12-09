@@ -68,8 +68,8 @@
     </script>
     <style>
         .bg-gradient-dark {
-            background: rgb(65,0,99);
-            background: linear-gradient(90deg, rgba(65,0,99,1) 0%, rgba(98,0,99,1) 47%, rgba(136,0,99,1) 100%);
+            background: rgb(65, 0, 99);
+            background: linear-gradient(90deg, rgba(65, 0, 99, 1) 0%, rgba(98, 0, 99, 1) 47%, rgba(136, 0, 99, 1) 100%);
         }
     </style>
 </head>
@@ -97,29 +97,34 @@
 <div class="bg-gradient-light pt-5">
     <div class="inner-container mt-2">
         <div class="table-class card bg-light text-dark between-divs">
-            <form action="@{/user/rentScooter}" th:method="post" th:action="@{/user/rentScooter}" th:object="${scooter}"
+            <form method="post" action="@{/user/rentScooter}" th:method="post" th:action="@{/user/rentScooter}"
+                  th:object="${scooter}"
                   style="width: 100%;">
                 <div class="card-header text-muted" style="width: 100%;">Rent Scooter</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col"><p class="field_name">Scooter name: </p></div>
-                        <div class="col align-content-end"><p class="attr_name" th:text="*{documentName}"></p></div>
+                        <div class="col align-content-end"><p th:field="*{documentName}" class="attr_name"
+                                                              th:text="*{documentName}"></p></div>
                     </div>
                     <div class="row">
                         <div class="col"><p class="field_name">Brand: </p></div>
-                        <div class="col"><p class="attr_name" th:text="*{brand}">Brand</p></div>
+                        <div class="col"><p th:field="*{brand}" class="attr_name" th:text="*{brand}">Brand</p></div>
                     </div>
                     <div class="row">
                         <div class="col"><p class="field_name">Serial number: </p></div>
-                        <div class="col"><p class="attr_name" th:text="*{serialNumber}">Serial number</p></div>
+                        <div class="col"><p th:field="*{serialNumber}" class="attr_name" th:text="*{serialNumber}">
+                            Serial number</p></div>
                     </div>
                     <div class="row">
                         <div class="col"><p class="field_name">State: </p></div>
-                        <div id="state" class="col"><p class="attr_name" th:text="*{state}">State</p></div>
+                        <div id="state" class="col"><p th:field="*{state}" class="attr_name" th:text="*{state}">
+                            State</p></div>
                     </div>
                     <div class="row">
                         <div class="col"><p class="field_name">Production Year: </p></div>
-                        <div class="col"><p class="attr_name" th:text="*{prodYear}">Production Year</p></div>
+                        <div class="col"><p th:field="*{prodYear}" class="attr_name" th:text="*{prodYear}">Production
+                            Year</p></div>
                     </div>
                     <div class="row">
                         <div class="col"><p class="field_name">Start Time: </p></div>
@@ -170,15 +175,16 @@
 
                     </div>
                 </div>
-
                 <div class="visually-hidden">
-                    <input type="text" th:field="*{documentName}"/>
-                    <input type="text" th:field="*{brand}"/>
-                    <input type="text" th:field="*{state}"/>
-                    <input type="text" th:field="*{serialNumber}"/>
-                    <input type="number" th:field="*{cost}"/>
-                    <input type="number" th:field="*{prodYear}"/>
-                    <input type="number" th:field="*{weight}"/>
+                    <input type="text" th:field="*{documentName}" hidden readonly/>
+                    <input type="text" th:field="*{brand}" hidden readonly/>
+                    <input type="text" th:field="*{state}" hidden readonly/>
+                    <input type="text" th:field="*{serialNumber}" hidden readonly/>
+                    <input type="number" th:field="*{cost}" hidden readonly/>
+                    <input type="number" th:field="*{prodYear}" hidden readonly/>
+                    <input type="number" th:field="*{weight}" hidden readonly/>
+                    <input type="text" th:field="*{latitude}" hidden readonly/>
+                    <input type="text" th:field="*{longitude}" hidden readonly/>
                 </div>
             </form>
         </div>
